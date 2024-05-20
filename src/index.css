@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@layer base {
+  @font-face {
+    font-family: "light";
+    src: url(../futura/FUTURA45LIGHT.TTF) format("woff2");
+  }
+  @font-face {
+    font-family: "regular";
+    src: url(../futura/FUTURA55REGULAR.TTF) format("woff2");
+  }
+  @font-face {
+    font-family: "medium";
+    src: url(../futura/FUTURA65MEDIUM.TTF) format("woff2");
+  }
+  @font-face {
+    font-family: "bold";
+    src: url(../futura/FUTURA75BOLD.TTF) format("woff2");
+  }
+}

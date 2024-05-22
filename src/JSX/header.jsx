@@ -4,7 +4,7 @@ import Location from "./location";
 const Header = () => {
   const [location, setLocation] = useState("Location");
   return (
-    <div className="h-20 flex px-5 items-center justify-around bg-white sticky mx-[25px]">
+    <div className="h-20 flex  items-center justify-around bg-white sticky top-0 px-[30px] z-50">
       <div className="flex justify-between items-center w-[300px] text-center">
         <img
           src="https://cdn.worldvectorlogo.com/logos/swiggy-1.svg"

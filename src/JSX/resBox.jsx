@@ -9,7 +9,7 @@ const Box = (props) => {
     cuisines,
   } = props.data;
 
-  console.log(aggregatedDiscountInfoV3);
+  const { height, width, top } = props;
 
   let offer = "";
   if (aggregatedDiscountInfoV3 === undefined) {
@@ -23,13 +23,17 @@ const Box = (props) => {
 
   return (
     <a href="">
-      <div className="w-[273px] h-[283px] mr-[32px]">
+      <div className=" h-[283px] mr-[28px]" style={{ width: width }}>
         <div
           style={{
-            backgroundImage: `linear-gradient(rgba(27, 30, 36, 0) 70%, rgb(27, 30, 36) 95.21%),url(https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId})`,
+            backgroundImage: `linear-gradient(rgba(27, 30, 36, 0) 70%, rgb(27, 30, 36) 92.21%),url(https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId})`,
+            height: `${height}`,
+            width: `${width}`,
           }}
-          className="w-[273px] h-[182px] bg-cover bg-center rounded-[15px]">
-          <h1 className="text-[#fff] font-[900] text-[19px] ml-[10px] relative top-[150px]">
+          className="bg-cover bg-center rounded-[15px]">
+          <h1
+            className="text-[#fff] font-[900] text-[19px] ml-[10px] relative top-[150px]"
+            style={{ top: `${top}` }}>
             {offer}
           </h1>
         </div>

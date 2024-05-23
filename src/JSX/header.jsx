@@ -1,8 +1,17 @@
-import { useState } from "react";
-import Location from "./location";
+import { useState, useEffect } from "react";
+import { Location } from "./location";
 
 const Header = () => {
   const [location, setLocation] = useState("Location");
+  // function callBack() {
+  //   loc.style.display = display;
+  //   setDisplay("none");
+  // }
+
+  // useEffect(() => {
+  //   loc = document.querySelector(".loc");
+  // }, []);
+
   return (
     <div className="h-20 flex  items-center justify-around bg-white sticky top-0 px-[30px] z-50">
       <div className="flex justify-between items-center w-[300px] text-center">
@@ -16,7 +25,7 @@ const Header = () => {
             Other
           </span>
           <span className=" font-nun tracking-widest text-xs font-thin text-slate-600 hover:text-slate-500">
-            Jalandhar,Punjab,India
+            Jalandhar,punjab,India
           </span>
           <i className="material-icons text-[#FC8019]">keyboard_arrow_down</i>
         </div>

@@ -9,6 +9,7 @@ function getCoordinates(placeName) {
     .then((data) => {
       if (data.results.length > 0) {
         const location = data.results[0].geometry;
+        Location = location;
         console.log(
           `place's Latitude: ${location.lat}, Longitude: ${location.lng}`
         );

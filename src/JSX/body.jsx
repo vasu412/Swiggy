@@ -3,6 +3,7 @@ import Item from "./item";
 import data from "../APIs/data";
 import React from "react";
 import Box from "./resBox";
+import Shimmer from "./shimmer";
 
 const Body = () => {
   const [items, setItems] = useState([]);
@@ -33,7 +34,7 @@ const Body = () => {
   }, []);
 
   if (!Array.isArray(items) || items.length === 0) {
-    return null;
+    return <Shimmer />;
   }
   return (
     <div className="bg-[#f1f1f18c] px-[180px] ">
@@ -50,7 +51,7 @@ const Body = () => {
         <h1 className="font-[600] text-[21px] pt-[15px] pl-[15px] mb-[15px]">
           {topResTitle}
         </h1>
-        <div className="flex overflow-y-hidden ml-[16px] items pb-[20px]">
+        <div className="flex overflow-y-hidden items pb-[20px] items-start">
           {topRes.map((x) => {
             return (
               <Box

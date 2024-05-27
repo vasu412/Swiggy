@@ -1,31 +1,28 @@
-import { useState, useEffect } from "react";
-import { Location } from "./location";
+import { useContext } from "react";
+import location from "../APIs/context";
 
 const Header = () => {
-  const [location, setLocation] = useState("Location");
-  // function callBack() {
-  //   loc.style.display = display;
-  //   setDisplay("none");
-  // }
-
-  // useEffect(() => {
-  //   loc = document.querySelector(".loc");
-  // }, []);
+  let { setDis, setAnimate, currLocation } = useContext(location);
 
   return (
-    <div className="h-20 flex  items-center justify-around bg-white sticky top-0 px-[30px] z-50">
-      <div className="flex justify-between items-center w-[300px] text-center">
+    <div
+      className="h-20 flex  items-center justify-around bg-white sticky top-0 px-[30px] z-50"
+      onClick={() => {
+        setDis("block");
+        setAnimate("slideInLeft 0.4s ease-out forwards");
+      }}>
+      <div className="flex justify-start items-center w-[300px] text-center">
         <img
           src="https://cdn.worldvectorlogo.com/logos/swiggy-1.svg"
           alt=""
-          className="h-12 cursor-pointer hover:scale-[1.1] transition-all"
+          className="h-12 cursor-pointer hover:scale-[1.1] transition-all mr-[40px]"
         />
-        <div className="group flex items-center hover:text-[#FC8019] hover:border-[#FC8019] cursor-pointer">
+        <div className="group flex items-center hover:text-[#FC8019] hover:border-[#FC8019] cursor-pointer w-[370px]">
           <span className="border-b-2 border-black pb-[2px] font-mont text-sm font-bold mr-2 group-hover:border-[#FC8019]">
             Other
           </span>
-          <span className=" font-nun tracking-widest text-xs font-thin text-slate-600 hover:text-slate-500">
-            Jalandhar,punjab,India
+          <span className=" font-nun tracking-widest text-xs font-thin text-slate-600 hover:text-slate-500 text-ellipsis whitespace-nowrap overflow-hidden mr-[30px]">
+            {currLocation}
           </span>
           <i className="material-icons text-[#FC8019]">keyboard_arrow_down</i>
         </div>
@@ -81,7 +78,6 @@ const Header = () => {
           </p>
         </a>
       </div>
-      {/* <Location /> */}
     </div>
   );
 };

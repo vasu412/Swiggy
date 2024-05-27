@@ -1,46 +1,88 @@
-import { useEffect, useState } from "react";
-import { ReactDOM } from "react";
+import { useContext, useState, useEffect } from "react";
+import location from "../APIs/context";
 import { getAddress } from "../APIs/currLocation";
 import getCoordinates from "../APIs/coordinates";
+import data from "../APIs/data";
 
-const Location = () => {
-  const [display, setDisplay] = useState("block");
+const Location = ({ setCards }) => {
+  const [coordinates, setCoordinates] = useState(null);
+
+  let { dis, setDis, animate, setAnimate, setCurrLocation } =
+    useContext(location);
+
+  useEffect(() => {
+    if (coordinates) {
+      async function fetchData() {
+        try {
+          const cardData = await data(coordinates.lat, coordinates.lng);
+          setCards(cardData);
+        } catch {
+          console.log("error");
+        }
+      }
+      fetchData();
+    }
+  }, [coordinates]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const address = e.target[0].value;
+    const cord = await getCoordinates(address);
+    setCoordinates(cord);
+    setCurrLocation(address);
+    e.target[0].value = "";
+    setDis("none");
+  };
 
   return (
     <div
-      className="w-[522px] h-[100vh] flex flex-col bg-white  justify-between fixed z-[999] top-0 loc"
-      style={{ display: display }}>
-      <div className="pl-[120px] pr-[40px] flex flex-col mt-[32px]">
-        <div className="mb-[30px] ">
-          <i
-            className="material-icons cursor-pointer"
-            onClick={() => setDisplay("none")}>
-            close
-          </i>
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Search for area, street name.."
-            className="w-[360px] h-[50px] pl-[20px] pr-[72px] border-[1px] border-[rgb(118, 118, 118)] font-nun"
-          />
-        </div>
-        <div
-          className="mt-[28px] group cursor-pointer"
-          onClick={async () => {
-            const address = await getAddress();
-            console.log(address);
-          }}>
-          <div className="px-[24px] py-[22px] border-[rgb(118, 118, 118)] border-[1px] flex">
-            <span className="mr-[10px]">
-              <i className="material-icons">my_location</i>
-            </span>
-            <span>
-              <p className="font-nun font-[500] group-hover:text-[#FC8019]">
-                Get current location
-              </p>
-              <p className="text-xs text-slate-400">Using GPS</p>
-            </span>
+      className="h-[100vh] w-[100vw] bg-[#282c3fb3] fixed z-[999] top-0"
+      style={{ display: dis }}>
+      <div
+        className="w-[522px] h-[100vh] flex flex-col bg-white  justify-between fixed  loc "
+        style={{ animation: animate }}>
+        <div className="pl-[120px] pr-[40px] flex flex-col mt-[32px]">
+          <div className="mb-[30px]">
+            <i
+              className="material-icons cursor-pointer"
+              onClick={() => {
+                setAnimate("slideInRight 0.2s ease-in-out");
+                setTimeout(() => {
+                  setDis("none");
+                }, 200);
+              }}>
+              close
+            </i>
+          </div>
+          <div>
+            <form action="#" onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Search for area, street name.."
+                className="w-[360px] h-[50px] pl-[20px] pr-[72px] border-[1px] border-[rgb(118, 118, 118)] font-nun"
+              />
+              <button type="submit" className="none"></button>
+            </form>
+          </div>
+          <div
+            className="mt-[28px] group cursor-pointer"
+            onClick={async () => {
+              const loc = getAddress();
+              const locData = await loc;
+              setCurrLocation(locData);
+              setDis("none");
+            }}>
+            <div className="px-[24px] py-[22px] border-[rgb(118, 118, 118)] border-[1px] flex">
+              <span className="mr-[10px]">
+                <i className="material-icons">my_location</i>
+              </span>
+              <span>
+                <p className="font-nun font-[500] group-hover:text-[#FC8019]">
+                  Get current location
+                </p>
+                <p className="text-xs text-slate-400">Using GPS</p>
+              </span>
+            </div>
           </div>
         </div>
       </div>

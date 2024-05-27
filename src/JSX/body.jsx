@@ -1,90 +1,37 @@
-import { useEffect, useState } from "react";
-import Item from "./item";
-import data from "../APIs/data";
-import React from "react";
-import Box from "./resBox";
+import React, { useEffect } from "react";
 import Shimmer from "./shimmer";
+import Items from "./items";
+import TopRestaurants from "./topRestaurants";
+import ResList from "./resList";
+import data from "../APIs/data";
 
-const Body = () => {
-  const [items, setItems] = useState([]);
-  const [title, setTitle] = useState("");
-  const [topRes, setTopRes] = useState([]);
-  const [topResTitle, setTopResTitle] = useState("");
-  const [resTitle, setResTitle] = useState("");
-  const [res, setRes] = useState([]);
-
+const Body = ({ cards, setCards }) => {
   useEffect(() => {
-    (async () => {
-      const cards = await data();
-      setItems(
-        cards?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info
-      );
-      setTitle(cards?.data?.cards[0]?.card?.card?.header?.title);
-      setTopRes(
-        cards?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants
-      );
-      setTopResTitle(cards?.data?.cards[1]?.card?.card?.header?.title);
-      setResTitle(cards?.data?.cards[2]?.card?.card?.title);
-      setRes(
-        cards?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants
-      );
-    })();
+    async function fetchData() {
+      const cardData = await data(31.3260152, 75.57618289999999);
+      setCards(cardData);
+    }
+    fetchData();
   }, []);
 
-  if (!Array.isArray(items) || items.length === 0) {
+  if (cards === null) {
     return <Shimmer />;
   }
+  const items =
+    cards?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info;
+  const title = cards?.data?.cards[0]?.card?.card?.header?.title;
+  const topRes =
+    cards?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+  const topResTitle = cards?.data?.cards[1]?.card?.card?.header?.title;
+  const resTitle = cards?.data?.cards[2]?.card?.card?.title;
+  const res =
+    cards?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+
   return (
     <div className="bg-[#f1f1f18c] px-[180px] ">
-      <div>
-        <h1 className="font-[600] text-[21px] pt-[15px] pl-[15px]">{title}</h1>
-        <div className="flex overflow-y-hidden items">
-          {items.map((x) => {
-            return <Item img={x.imageId} key={x.id} />;
-          })}
-        </div>
-        <hr className="my-[32px] border-[1px]" />
-      </div>
-      <div>
-        <h1 className="font-[600] text-[21px] pt-[15px] pl-[15px] mb-[15px]">
-          {topResTitle}
-        </h1>
-        <div className="flex overflow-y-hidden items pb-[20px] items-start">
-          {topRes.map((x) => {
-            return (
-              <Box
-                data={x.info}
-                key={x.info.id}
-                height={"182px"}
-                width={"273px"}
-                top={"150px"}
-              />
-            );
-          })}
-        </div>
-        <hr className="my-[32px] border-[1px]" />
-      </div>
-      <div>
-        <h1 className="font-[600] text-[21px] pt-[15px] pl-[15px] mb-[25px]">
-          {resTitle}
-        </h1>
-        <div className="flex overflow-y-hidden ml-[16px] flex-wrap gap-y-[8px] ">
-          {res.map((x) => {
-            return (
-              <Box
-                data={x.info}
-                key={x.info.id}
-                height={"159px"}
-                width={"238px"}
-                top={"130px"}
-              />
-            );
-          })}
-        </div>
-        <hr className="my-[32px] border-[1px]" />
-      </div>
+      <Items items={items} title={title} />
+      <TopRestaurants topRes={topRes} topResTitle={topResTitle} />
+      <ResList resTitle={resTitle} res={res} />
     </div>
   );
 };

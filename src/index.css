@@ -60,3 +60,12 @@
   border: 2px solid #d5d5d5;
   border-radius: 10px;
 }
+
+@keyframes slideInLeft {
+  0%  { transform: translateX(-100%); opacity: 1 }
+  100%{ transform: translateX(0); opacity: 1}
+}
+@keyframes slideInRight{
+  0%  { transform: translateX(0); opacity: 1 }
+  100%{ transform: translateX(-100%); opacity: 1}
+}

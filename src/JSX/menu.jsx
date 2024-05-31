@@ -5,15 +5,16 @@ import location from "../APIs/context";
 import MenuCardData from "./menuCardData";
 import { useParams } from "react-router-dom";
 import MenuCardData2 from "./menuCardData2";
+import MenuCarousel from "./menuCarousel";
 
 const Menu = () => {
   const { id } = useParams();
-  let { currLocation } = useContext(location);
+  let { currLocation, coordinates } = useContext(location);
   const [menuData, setMenuData] = useState(null);
 
   useEffect(() => {
     async function cards() {
-      const data = await menuCard(id);
+      const data = await menuCard(id, coordinates.lat, coordinates.lng);
       console.log(data);
       setMenuData(data);
     }
@@ -103,7 +104,7 @@ const Menu = () => {
         Deals for you
       </h1>
 
-      <div className="h-[76px] flex overflow-y-hidden items-center">
+      <div className="h-[76px] flex overflow-y-hidden items-center hide">
         {offers.map(({ info }) => {
           return (
             <div className="p-[12px] min-w-[300px] h-[75px] border flex items-center rounded-[19px] mr-[16px]">
@@ -163,6 +164,8 @@ const Menu = () => {
               <>
                 {x?.card?.card?.categories ? (
                   <MenuCardData2 x={x} />
+                ) : x?.card?.card?.carousel ? (
+                  <MenuCarousel x={x} />
                 ) : (
                   <>
                     <MenuCardData x={x} />

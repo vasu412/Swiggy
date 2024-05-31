@@ -5,10 +5,16 @@ import getCoordinates from "../APIs/coordinates";
 import loadMoreRestaurants from "../APIs/data";
 
 const Location = () => {
-  const [coordinates, setCoordinates] = useState(null);
-
-  let { dis, setDis, animate, setAnimate, setCurrLocation, setCards } =
-    useContext(location);
+  let {
+    dis,
+    setDis,
+    animate,
+    setAnimate,
+    setCurrLocation,
+    setCards,
+    coordinates,
+    setCoordinates,
+  } = useContext(location);
 
   useEffect(() => {
     if (coordinates) {

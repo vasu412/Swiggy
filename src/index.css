@@ -89,3 +89,7 @@
   line-height: 1.5;           /* Set line height */
   /* max-height: 3em;            Limit the maximum height to two lines */
 }
+
+.hide::-webkit-scrollbar {
+  display: none;
+}

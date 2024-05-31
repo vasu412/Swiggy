@@ -11,6 +11,7 @@ function App() {
   const [animate, setAnimate] = useState("slideInLeft 0.4s ease-out");
   const [currLocation, setCurrLocation] = useState("");
   const [cards, setCards] = useState(null);
+  const [coordinates, setCoordinates] = useState(null);
 
   return (
     <div>
@@ -24,6 +25,8 @@ function App() {
           setCurrLocation,
           cards,
           setCards,
+          coordinates,
+          setCoordinates,
         }}>
         <Header />
         <Location />

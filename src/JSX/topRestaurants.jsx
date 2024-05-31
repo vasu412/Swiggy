@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Box from "./resBox";
 
 const TopRestaurants = ({ topRes, topResTitle }) => (
@@ -8,13 +9,15 @@ const TopRestaurants = ({ topRes, topResTitle }) => (
     <div className="flex overflow-y-hidden items pb-[20px] items-start">
       {topRes.map((x) => {
         return (
-          <Box
-            data={x.info}
-            key={x.info.id}
-            height={"182px"}
-            width={"273px"}
-            top={"150px"}
-          />
+          <Link key={x.info.id} to={"menu/" + x.info.id}>
+            <Box
+              data={x.info}
+              key={x.info.id}
+              height={"182px"}
+              width={"273px"}
+              top={"150px"}
+            />
+          </Link>
         );
       })}
     </div>

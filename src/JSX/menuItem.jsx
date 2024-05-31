@@ -4,6 +4,8 @@ const MenuItem = ({ item }) => {
   let color = "";
   return (
     <>
+      <hr className="my-[20px] border-[#d3d3d3b8] w-[108px]" />
+
       {item.map((x, idx) => {
         const { info } = x.card;
         const {
@@ -13,7 +15,6 @@ const MenuItem = ({ item }) => {
           isBestseller,
           inStock,
           name,
-          price,
           ratings,
           id,
         } = info;
@@ -44,7 +45,9 @@ const MenuItem = ({ item }) => {
                   className="h-[20px] w-[20px]"
                 />
                 <h1 className="font-nun font-bold text-[18px]">{name}</h1>
-                <h1 className="text-[16px] font-regular">₹{price / 100}</h1>
+                <h1 className="text-[16px] font-regular">
+                  ₹{info.price / 100 || info.defaultPrice / 100}
+                </h1>
                 <div className="flex items-center">
                   {ratings.aggregatedRating.rating ? (
                     <img

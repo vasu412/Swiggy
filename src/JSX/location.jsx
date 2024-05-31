@@ -2,19 +2,22 @@ import { useContext, useState, useEffect } from "react";
 import location from "../APIs/context";
 import { getAddress } from "../APIs/currLocation";
 import getCoordinates from "../APIs/coordinates";
-import data from "../APIs/data";
+import loadMoreRestaurants from "../APIs/data";
 
-const Location = ({ setCards }) => {
+const Location = () => {
   const [coordinates, setCoordinates] = useState(null);
 
-  let { dis, setDis, animate, setAnimate, setCurrLocation } =
+  let { dis, setDis, animate, setAnimate, setCurrLocation, setCards } =
     useContext(location);
 
   useEffect(() => {
     if (coordinates) {
       async function fetchData() {
         try {
-          const cardData = await data(coordinates.lat, coordinates.lng);
+          const cardData = await loadMoreRestaurants(
+            coordinates.lat,
+            coordinates.lng
+          );
           setCards(cardData);
         } catch {
           console.log("error");

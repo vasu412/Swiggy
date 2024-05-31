@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Shimmer from "./shimmer";
 import Items from "./items";
 import TopRestaurants from "./topRestaurants";
 import ResList from "./resList";
-import data from "../APIs/data";
+import loadMoreRestaurants from "../APIs/data";
+import location from "../APIs/context";
 
-const Body = ({ cards, setCards }) => {
+const Body = () => {
+  const { cards, setCards } = useContext(location);
+
   useEffect(() => {
     async function fetchData() {
-      const cardData = await data(31.3260152, 75.57618289999999);
+      const cardData = await loadMoreRestaurants(31.3260152, 75.57618289999999);
       setCards(cardData);
     }
     fetchData();

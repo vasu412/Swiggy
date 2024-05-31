@@ -69,3 +69,23 @@
   0%  { transform: translateX(0); opacity: 1 }
   100%{ transform: translateX(-100%); opacity: 1}
 }
+
+.lg{
+  border-radius: 34px;
+  border-top-left-radius:0;
+  border-top-right-radius: 0;
+  background: linear-gradient(rgb(255, 255, 255) -6.71%, rgb(235, 235, 242) 56.19%, rgb(223, 223, 231) 106.56%);
+}
+
+.container {
+  /* width: 200px;               Specify a fixed width */
+  /* height: 3em;   
+               Height to accommodate two lines based on line-height */
+  overflow: hidden;           /* Hide the overflowed text */
+  text-overflow: ellipsis;    /* Display ellipsis (...) for overflowed text */
+  display: -webkit-box;       /* Enable flexbox for WebKit browsers */
+  -webkit-box-orient: vertical; /* Set vertical orientation for the box */
+  -webkit-line-clamp: 2;      /* Limit the text to two lines */
+  line-height: 1.5;           /* Set line height */
+  /* max-height: 3em;            Limit the maximum height to two lines */
+}

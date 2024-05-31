@@ -3,6 +3,8 @@ import Body from "./body";
 import { Location } from "./location";
 import location from "../APIs/context";
 import { useState } from "react";
+import Menu from "./menu";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [dis, setDis] = useState("none");
@@ -20,10 +22,12 @@ function App() {
           setAnimate,
           currLocation,
           setCurrLocation,
+          cards,
+          setCards,
         }}>
         <Header />
-        <Body cards={cards} setCards={setCards} />
-        <Location setCards={setCards} />
+        <Location />
+        <Outlet />
       </location.Provider>
     </div>
   );

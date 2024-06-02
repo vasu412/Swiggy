@@ -38,8 +38,8 @@ const MenuItem = ({ item }) => {
                 <img
                   src={
                     isVeg === 1
-                      ? "../src/assets/veg.png"
-                      : "/src/assets/nonveg.png"
+                      ? "./../src/assets/veg.png"
+                      : "./../src/assets/nonveg.png"
                   }
                   alt="veg/nonveg"
                   className="h-[20px] w-[20px]"

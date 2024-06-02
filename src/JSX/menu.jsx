@@ -54,7 +54,7 @@ const Menu = () => {
         <div className="bg-white w-[768px] h-[190px] border-[1px] border-gray-300 mx-[16px] mb-[16px] rounded-3xl">
           <div className="mt-[20px] ml-[16px] font-nun font-bold text-[15px] flex items-center">
             <img
-              src="../../src/assets/star.png"
+              src="../src/assets/star.png"
               alt=""
               className="h-[18px] w-[18px] mr-[4px]"
             />

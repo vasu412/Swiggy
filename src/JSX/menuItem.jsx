@@ -20,10 +20,10 @@ const MenuItem = ({ item }) => {
         } = info;
         src =
           Number(ratings.aggregatedRating.rating) < 3
-            ? "../src/assets/yellow.png"
+            ? "../assets/yellow.png"
             : Number(ratings.aggregatedRating.rating) < 4
-            ? "/src/assets/lgreen.png"
-            : "/src/assets/green.png";
+            ? "/assets/lgreen.png"
+            : "/assets/green.png";
 
         color =
           Number(ratings.aggregatedRating.rating) < 3
@@ -37,9 +37,7 @@ const MenuItem = ({ item }) => {
               <div className="w-[552px] h-[74px]">
                 <img
                   src={
-                    isVeg === 1
-                      ? "./../src/assets/veg.png"
-                      : "./../src/assets/nonveg.png"
+                    isVeg === 1 ? "../assets/veg.png" : "../assets/nonveg.png"
                   }
                   alt="veg/nonveg"
                   className="h-[20px] w-[20px]"

@@ -10,62 +10,69 @@ async function loadMoreRestaurants(lat, lng) {
   }
 }
 
-async function fetchAllRestaurants(lat, lng) {
-  let allRestaurants = [];
-  let nextOffset = null; // Initial offset
-  let hasMoreData = true;
-  const limit = 20; // Number of restaurants per request (adjust as necessary)
+// const axios = require("axios");
 
-  // Add your collections parameter value here
-  const collections = "83667";
+const url = "https://www.swiggy.com/dapi/restaurants/list/v5"; // Example endpoint; verify or adjust if needed
 
-  while (hasMoreData) {
-    // Construct the URL with the current offset if available
-    const requestBody = {
-      lat: lat,
-      lng: lng,
-      limit: limit,
-      collections: collections,
-      offset: nextOffset,
-    };
+const headers = new Headers({
+  "Content-Type": "application/json",
+  "x-csrf-token": "xTyUvYKNRFkQ-GXL2RqTfOdbLcCaowPcc0AoR_B8",
+  // Add any other necessary headers here
+});
 
-    // Make the API request
-    const response = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      }
-    );
+async function fetchRestaurants(lat, lng, nextOffset = "") {
+  const payload = {
+    filters: {},
+    lat: 31.322239219689113,
+    lng: 75.57277113013306,
+    nextOffset: "COVCELQ4KICAtrKXn6fRTzCnEzgC",
+    page_type: "DESKTOP_WEB_LISTING",
+    seoParams: {
+      seoUrl: "https://www.swiggy.com/",
+      pageType: "FOOD_HOMEPAGE",
+      apiName: "FoodHomePage",
+    },
+    apiName: "FoodHomePage",
+    pageType: "FOOD_HOMEPAGE",
+    seoUrl: "https://www.swiggy.com/",
+    widgetOffset: {
+      NewListingView_category_bar_chicletranking_TwoRows: "",
+      NewListingView_category_bar_chicletranking_TwoRows_Rendition: "",
+      Restaurant_Group_WebView_SEO_PB_Theme: "",
+      collectionV5RestaurantListWidget_SimRestoRelevance_food_seo: "25",
+      inlineFacetFilter: "",
+      restaurantCountWidget: "",
+    },
+    _csrf: "xTyUvYKNRFkQ-GXL2RqTfOdbLcCaowPcc0AoR_B8",
+  };
 
-    if (response.ok) {
-      const data = await response.json();
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(payload),
+    });
 
-      // Add the fetched restaurant cards to the list
-      console.log(data); // Adjust based on the structure of the response
-
-      // Check if there's a next offset available
-      if (data.data.pageOffset.nextOffset) {
-        nextOffset = data.data.pageOffset.nextOffset; // Set nextOffset for the next request
-      } else {
-        hasMoreData = false; // Stop if no nextOffset is provided
-      }
-    } else {
-      console.error(`Failed to fetch data: ${response.status}`);
-      hasMoreData = false; // Stop the loop in case of an error
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  }
 
-  return allRestaurants;
+    const data = await response.json();
+    console.log(data); // Process the data as needed
+
+    // Check if there's a nextOffset for the next page
+    if (data && data.data && data.data.nextOffset) {
+      // Call the function recursively with the new nextOffset
+      await fetchRestaurants(lat, lng, data.data.nextOffset);
+    } else {
+      console.log("No more data to fetch.");
+    }
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+  }
 }
 
-// Usage example
-// fetchAllRestaurants(31.3260152, 75.57618289999999);
+// Initial call to fetch the first page of results
+fetchRestaurants(31.322239219689113, 75.57277113013306);
 
 export default loadMoreRestaurants;

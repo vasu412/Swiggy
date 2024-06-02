@@ -20,10 +20,10 @@ const MenuItem = ({ item }) => {
         } = info;
         src =
           Number(ratings.aggregatedRating.rating) < 3
-            ? "../../src/assets/yellow.png"
+            ? "/src/assets/yellow.png"
             : Number(ratings.aggregatedRating.rating) < 4
-            ? "../../src/assets/lgreen.png"
-            : "../../src/assets/green.png";
+            ? "/src/assets/lgreen.png"
+            : "/src/assets/green.png";
 
         color =
           Number(ratings.aggregatedRating.rating) < 3
@@ -38,8 +38,8 @@ const MenuItem = ({ item }) => {
                 <img
                   src={
                     isVeg === 1
-                      ? "../../src/assets/veg.png"
-                      : "../../src/assets/nonveg.png"
+                      ? "/src/assets/veg.png"
+                      : "/src/assets/nonveg.png"
                   }
                   alt="veg/nonveg"
                   className="h-[20px] w-[20px]"
@@ -74,14 +74,16 @@ const MenuItem = ({ item }) => {
                   {description}
                 </p>
               </div>
-              <img
-                src={
-                  "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/" +
-                  imageId
-                }
-                alt=""
-                className="w-[156px] h-[144px] rounded-xl ml-[60px]"
-              />
+              {imageId && (
+                <img
+                  src={
+                    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/" +
+                    imageId
+                  }
+                  alt=""
+                  className="w-[156px] h-[144px] rounded-xl ml-[60px]"
+                />
+              )}
             </div>
             {idx < item.length - 1 && (
               <hr className="my-[20px] border-[#d3d3d3b8]" />

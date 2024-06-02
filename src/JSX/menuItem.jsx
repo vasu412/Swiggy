@@ -20,7 +20,7 @@ const MenuItem = ({ item }) => {
         } = info;
         src =
           Number(ratings.aggregatedRating.rating) < 3
-            ? "/src/assets/yellow.png"
+            ? "../src/assets/yellow.png"
             : Number(ratings.aggregatedRating.rating) < 4
             ? "/src/assets/lgreen.png"
             : "/src/assets/green.png";
@@ -38,7 +38,7 @@ const MenuItem = ({ item }) => {
                 <img
                   src={
                     isVeg === 1
-                      ? "/src/assets/veg.png"
+                      ? "../src/assets/veg.png"
                       : "/src/assets/nonveg.png"
                   }
                   alt="veg/nonveg"

@@ -7,18 +7,40 @@ import loadMoreRestaurants from "../APIs/data";
 import location from "../APIs/context";
 
 const Body = () => {
-  const { cards, setCards } = useContext(location);
+  const { cards, setCards, coordinates } = useContext(location);
 
   useEffect(() => {
     async function fetchData() {
-      const cardData = await loadMoreRestaurants(31.3260152, 75.57618289999999);
+      const cardData = await loadMoreRestaurants(
+        coordinates.lat,
+        coordinates.lng
+      );
       setCards(cardData);
     }
     fetchData();
   }, []);
 
-  if (cards === null) {
+  if (cards === null || cards.statusMessage === "Lat or Lng is missing") {
     return <Shimmer />;
+  }
+
+  if (
+    cards.statusMessage === "Oops!! Something went wrong" ||
+    cards.data.cards[0].card.card.title === "Location Unserviceable"
+  ) {
+    return (
+      <div className="flex items-center justify-center flex-col mt-[10%]">
+        <img
+          src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_476,h_476/portal/m/location_unserviceable.png"
+          alt=""
+          className="h-[238px] w-[238px]"
+        />
+        <h1 className="font-[600] my-[10px]">Location Unserviceable</h1>
+        <p className="text-[14px] mx-[40%] text-center text-[gray]">
+          We don’t have any services here till now. Try changing location.
+        </p>
+      </div>
+    );
   }
   const items =
     cards?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info;

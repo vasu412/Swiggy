@@ -8,21 +8,41 @@ import MenuCardData2 from "./menuCardData2";
 import MenuCarousel from "./menuCarousel";
 
 const Menu = () => {
-  const { id } = useParams();
   let { currLocation, coordinates } = useContext(location);
+
+  const { id } = useParams();
   const [menuData, setMenuData] = useState(null);
 
   useEffect(() => {
     async function cards() {
       const data = await menuCard(id, coordinates.lat, coordinates.lng);
-      console.log(data);
       setMenuData(data);
+      console.log(data);
     }
     cards();
   }, [id]);
 
   if (menuData === null) return <Shimmer />;
+  if (
+    menuData.statusMessage === "Oops!! Something Went Wrong"
+    // cards.data.cards[0].card.card.title === "Location Unserviceable"
+  ) {
+    return (
+      <div className="flex items-center justify-center flex-col mt-[10%]">
+        <img
+          src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_476,h_476/portal/m/location_unserviceable.png"
+          alt=""
+          className="h-[238px] w-[238px]"
+        />
+        <h1 className="font-[600] my-[10px]">Location Unserviceable</h1>
+        <p className="text-[14px] mx-[40%] text-center text-[gray]">
+          We don’t have any services here till now. Try changing location.
+        </p>
+      </div>
+    );
+  }
 
+  console.log(menuData);
   const title = menuData?.data?.cards[0]?.card?.card?.text;
   const {
     avgRating,
@@ -32,6 +52,7 @@ const Menu = () => {
     cuisines,
     feeDetails,
     sla,
+    availabilityServiceabilityMessage,
   } = menuData?.data?.cards[2]?.card?.card?.info;
   const offers =
     menuData?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers;
@@ -54,7 +75,7 @@ const Menu = () => {
         <div className="bg-white w-[768px] h-[190px] border-[1px] border-gray-300 mx-[16px] mb-[16px] rounded-3xl">
           <div className="mt-[20px] ml-[16px] font-nun font-bold text-[15px] flex items-center">
             <img
-              src="../src/assets/star.png"
+              src="./assets/star.png"
               alt=""
               className="h-[18px] w-[18px] mr-[4px]"
             />
@@ -82,7 +103,7 @@ const Menu = () => {
                 <span className="font-[300] text-[gray] ">{locality}</span>
               </div>
               <div className="mt-[10px]">
-                <span>{sla.slaString.toLowerCase()}</span>
+                <span>{sla.slaString}</span>
               </div>
             </div>
           </div>
@@ -94,7 +115,7 @@ const Menu = () => {
               className="h-[20px] w-[20px]"
             />
             <span className="font-[300] text-[gray] text-[13px] ml-2">
-              {feeDetails.message}
+              {feeDetails.message || availabilityServiceabilityMessage}
             </span>
           </div>
         </div>
@@ -131,25 +152,17 @@ const Menu = () => {
       </div>
 
       <div className="pt-[32px] pb-[16px] text-center flex items-center justify-center">
-        <img
-          src="../../src/assets/vintage.png"
-          alt=""
-          className="h-[50px] w-[50px]"
-        />
+        <img src="./assets/vintage.png" alt="" className="h-[50px] w-[50px]" />
         <span className="mx-[4px] tracking-[4px] text-[#02060C73] text-sm">
           MENU
         </span>
-        <img
-          src="../../src/assets/vintage.png"
-          alt=""
-          className="h-[50px] w-[50px]"
-        />
+        <img src="./assets/vintage.png" alt="" className="h-[50px] w-[50px]" />
       </div>
 
       <button className="text-[gray] text-center w-full h-[48px] bg-[#F0F0F5] rounded-xl relative mb-[50px]">
         Search for dishes
         <img
-          src="../../src/assets/search.png"
+          src="./assets/search.png"
           alt=""
           className="h-[16px] w-[16px] absolute right-[10px] top-[15px]"
         />

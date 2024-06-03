@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import location from "../APIs/context";
 import { getAddress } from "../APIs/currLocation";
-import getCoordinates from "../APIs/coordinates";
+import getCoordinates, { place } from "../APIs/coordinates";
 import loadMoreRestaurants from "../APIs/data";
 
 const Location = () => {
@@ -14,7 +14,31 @@ const Location = () => {
     setCards,
     coordinates,
     setCoordinates,
+    currLocation,
   } = useContext(location);
+
+  const locationCurr = currLocation[0]
+    ? currLocation[0].display_name
+    : currLocation.address
+    ? currLocation.address.town +
+      "," +
+      currLocation.address.state +
+      " " +
+      currLocation.address.postcode +
+      "," +
+      currLocation.address.country
+    : "";
+
+  useEffect(() => {
+    if (coordinates.lng !== "" && coordinates.lat !== "") {
+      localStorage.setItem(
+        "coordinates",
+        coordinates.lat + "," + coordinates.lng
+      );
+
+      localStorage.setItem("currLocation", locationCurr);
+    }
+  }, [coordinates]);
 
   useEffect(() => {
     if (coordinates) {
@@ -37,8 +61,15 @@ const Location = () => {
     e.preventDefault();
     const address = e.target[0].value;
     const cord = await getCoordinates(address);
-    setCoordinates(cord);
-    setCurrLocation(address);
+    const cord2 = await place(address);
+    setCoordinates((prev) => {
+      return {
+        lat: cord.lat,
+        lng: cord.lng,
+      };
+    });
+    // console.log(localStorage.getItem("coordinates"));
+    setCurrLocation(cord2);
     e.target[0].value = "";
     setDis("none");
   };
@@ -69,6 +100,7 @@ const Location = () => {
                 type="text"
                 placeholder="Search for area, street name.."
                 className="w-[360px] h-[50px] pl-[20px] pr-[72px] border-[1px] border-[rgb(118, 118, 118)] font-nun"
+                // onKeyUp={(e) => autoComplete(e.target.value)}
               />
               <button type="submit" className="none"></button>
             </form>
@@ -79,6 +111,13 @@ const Location = () => {
               const loc = getAddress();
               const locData = await loc;
               setCurrLocation(locData);
+              setCoordinates((prev) => {
+                return {
+                  [coordinates.lat]: locData.lat,
+                  [coordinates.lng]: locData.lon,
+                };
+              });
+              // setCoordinates()
               setDis("none");
             }}>
             <div className="px-[24px] py-[22px] border-[rgb(118, 118, 118)] border-[1px] flex">

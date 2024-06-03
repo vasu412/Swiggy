@@ -1,9 +1,7 @@
 import Header from "./header";
-import Body from "./body";
 import { Location } from "./location";
 import location from "../APIs/context";
 import { useState } from "react";
-import Menu from "./menu";
 import { Outlet } from "react-router-dom";
 
 function App() {
@@ -11,7 +9,7 @@ function App() {
   const [animate, setAnimate] = useState("slideInLeft 0.4s ease-out");
   const [currLocation, setCurrLocation] = useState("");
   const [cards, setCards] = useState(null);
-  const [coordinates, setCoordinates] = useState(null);
+  const [coordinates, setCoordinates] = useState({ lat: "", lng: "" });
 
   return (
     <div>

@@ -8,7 +8,7 @@ import MenuCardData2 from "./menuCardData2";
 import MenuCarousel from "./menuCarousel";
 
 const Menu = () => {
-  let { currLocation, coordinates } = useContext(location);
+  let { coordinates } = useContext(location);
 
   const { id } = useParams();
   const [menuData, setMenuData] = useState(null);

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import location from "../APIs/context";
-import { getAddress } from "../APIs/currLocation";
+import { getAddress, getCurrentLocation } from "../APIs/currLocation";
 import getCoordinates, { place } from "../APIs/coordinates";
 import loadMoreRestaurants from "../APIs/data";
 
@@ -111,13 +111,14 @@ const Location = () => {
               const loc = getAddress();
               const locData = await loc;
               setCurrLocation(locData);
-              setCoordinates((prev) => {
+              const position = await getCurrentLocation();
+              const { latitude, longitude } = position.coords;
+              setCoordinates(() => {
                 return {
-                  [coordinates.lat]: locData.lat,
-                  [coordinates.lng]: locData.lon,
+                  [coordinates.lat]: latitude,
+                  [coordinates.lng]: longitude,
                 };
               });
-              // setCoordinates()
               setDis("none");
             }}>
             <div className="px-[24px] py-[22px] border-[rgb(118, 118, 118)] border-[1px] flex">

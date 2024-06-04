@@ -3,6 +3,7 @@ import { Location } from "./location";
 import location from "../APIs/context";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import ItemRes from "./itemRes";
 
 function App() {
   const [dis, setDis] = useState("none");

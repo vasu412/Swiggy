@@ -6,7 +6,7 @@ const Items = ({ items, title }) => {
       <h1 className="font-[600] text-[21px] pt-[15px] pl-[15px]">{title}</h1>
       <div className="flex overflow-y-hidden items">
         {items.map((x) => {
-          return <Item img={x.imageId} key={x.id} />;
+          return <Item img={x.imageId} key={x.id} link={x.action.link} />;
         })}
       </div>
       <hr className="my-[32px] border-[1px]" />

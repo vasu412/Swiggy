@@ -23,7 +23,7 @@ const AllRestaurants = ({ cards }) => {
         </h1>
         <div className="flex flex-wrap gap-[16px]">
           {nearPlaces.map(({ text, link }) => (
-            <a href={link}>
+            <a href={link} key={text}>
               <div className="py-[16px] border-[#02060C1A] border-[1.5px] m-[16px]  mt-0 min-w-[575px] rounded-[15px]  text-center text-[14.4px]">
                 {text}
               </div>

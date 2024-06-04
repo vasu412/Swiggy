@@ -21,7 +21,9 @@ const Box = (props) => {
       aggregatedDiscountInfoV3.subHeader;
   }
   return (
-    <div className=" h-[283px] mr-[28px]" style={{ width: width }}>
+    <div
+      className=" h-[283px] mr-[28px] hover:scale-[0.95] transition-all delay-75"
+      style={{ width: width }}>
       <div
         style={{
           backgroundImage: `linear-gradient(rgba(27, 30, 36, 0) 70%, rgb(27, 30, 36) 92.21%),url(https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId})`,
@@ -35,8 +37,8 @@ const Box = (props) => {
           {offer}
         </h1>
       </div>
-      <div className="flex flex-col mt-[5px] ml-[7px]">
-        <span className="text-[17px] overflow-hidden text-ellipsis whitespace-nowrap mr-[35px] font-[600]">
+      <div className="flex flex-col mt-[10px] ml-[10px] ">
+        <span className="text-[20px] overflow-hidden text-ellipsis whitespace-nowrap mr-[35px] font-medium">
           {name}
         </span>
         <span className="text-[15px] text-nun text-zinc-950 flex items-center">
@@ -45,12 +47,16 @@ const Box = (props) => {
             alt=""
             className="h-[18px] w-[18px] mr-[4px]"
           />
-          {avgRating + " . " + sla.slaString}
+          {avgRating}
+          <span className="text-[gray] text-[15px] mx-[5px]">&#8226;</span>
+          {sla.slaString}
         </span>
         <span className="text-[15px] text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap mr-[30px]">
           {cuisines.map((x) => x).join(", ")}
         </span>
-        <span className="text-[15px] text-gray-500">{areaName}</span>
+        <span className="text-[15px] text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap">
+          {areaName}
+        </span>
       </div>
     </div>
   );

@@ -1,8 +1,13 @@
-const Item = ({ img }) => {
+import { Link } from "react-router-dom";
+
+const Item = ({ img, link }) => {
+  const id = link.substring(link.indexOf("=") + 1);
+  const arr = id.split("&");
+  // console.log(id, arr[0]);
   return (
     <div className="p-[16px] ">
       <div>
-        <a href="">
+        <Link key={arr[0]} to={`food/${id}`}>
           <img
             src={
               "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/" +
@@ -11,7 +16,7 @@ const Item = ({ img }) => {
             alt=""
             className="min-w-[144px] h-[180px] mix-blend-multiply"
           />
-        </a>
+        </Link>
       </div>
     </div>
   );

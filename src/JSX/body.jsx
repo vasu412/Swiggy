@@ -27,8 +27,8 @@ const Body = () => {
   }
 
   if (
-    cards.data.cards[0].card.card.title === "Location Unserviceable" ||
-    cards.statusMessage === "Oops!! Something went wrong"
+    cards.statusMessage === "Oops!! Something went wrong" ||
+    cards.data.cards[0].card.card.title === "Location Unserviceable"
   ) {
     return (
       <div className="flex items-center justify-center flex-col mt-[10%]">
@@ -44,6 +44,7 @@ const Body = () => {
       </div>
     );
   }
+
   const items =
     cards?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info;
   const title = cards?.data?.cards[0]?.card?.card?.header?.title;
@@ -60,7 +61,7 @@ const Body = () => {
         <TopRestaurants topRes={topRes} topResTitle={topResTitle} />
         <ResList resTitle={resTitle} res={res} />
       </div>
-      <AllRestaurants cards={cards} />
+      <AllRestaurants cards={cards} key={"allRes"} />
       <Footer />
     </div>
   );

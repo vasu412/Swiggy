@@ -5,6 +5,7 @@ import "./../index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Menu from "./menu.jsx";
 import Body from "./body.jsx";
+import ItemRes from "./itemRes.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "menu/:id",
         element: <Menu />,
+      },
+      {
+        path: "food/:id",
+        element: <ItemRes />,
       },
     ],
   },

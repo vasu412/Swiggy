@@ -1,6 +1,6 @@
 import { loc } from "./coordinates";
 
-async function getCurrentLocation() {
+export async function getCurrentLocation() {
   return new Promise((resolve, reject) => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(

@@ -5,6 +5,8 @@ import TopRestaurants from "./topRestaurants";
 import ResList from "./resList";
 import loadMoreRestaurants from "../APIs/data";
 import location from "../APIs/context";
+import Footer from "./footer";
+import AllRestaurants from "./allRes";
 
 const Body = () => {
   const { cards, setCards, coordinates } = useContext(location);
@@ -51,12 +53,15 @@ const Body = () => {
   const resTitle = cards?.data?.cards[2]?.card?.card?.title;
   const res =
     cards?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-
   return (
-    <div className="bg-[#f1f1f18c] px-[180px] ">
-      <Items items={items} title={title} />
-      <TopRestaurants topRes={topRes} topResTitle={topResTitle} />
-      <ResList resTitle={resTitle} res={res} />
+    <div className="bg-[#f1f1f18c]">
+      <div className=" px-[180px]">
+        <Items items={items} title={title} />
+        <TopRestaurants topRes={topRes} topResTitle={topResTitle} />
+        <ResList resTitle={resTitle} res={res} />
+      </div>
+      <AllRestaurants cards={cards} />
+      <Footer />
     </div>
   );
 };

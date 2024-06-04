@@ -35,11 +35,16 @@ const Box = (props) => {
           {offer}
         </h1>
       </div>
-      <div className="flex flex-col">
-        <span className="text-[21px] overflow-hidden text-ellipsis whitespace-nowrap mr-[35px] font-medium">
+      <div className="flex flex-col mt-[5px] ml-[7px]">
+        <span className="text-[17px] overflow-hidden text-ellipsis whitespace-nowrap mr-[35px] font-[600]">
           {name}
         </span>
-        <span className="text-[15px] text-[600] font-[500] text-zinc-950">
+        <span className="text-[15px] text-nun text-zinc-950 flex items-center">
+          <img
+            src="/assets/star.png"
+            alt=""
+            className="h-[18px] w-[18px] mr-[4px]"
+          />
           {avgRating + " . " + sla.slaString}
         </span>
         <span className="text-[15px] text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap mr-[30px]">

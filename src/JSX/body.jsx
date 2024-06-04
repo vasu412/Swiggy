@@ -25,8 +25,8 @@ const Body = () => {
   }
 
   if (
-    cards.statusMessage === "Oops!! Something went wrong" ||
-    cards.data.cards[0].card.card.title === "Location Unserviceable"
+    cards.data.cards[0].card.card.title === "Location Unserviceable" ||
+    cards.statusMessage === "Oops!! Something went wrong"
   ) {
     return (
       <div className="flex items-center justify-center flex-col mt-[10%]">

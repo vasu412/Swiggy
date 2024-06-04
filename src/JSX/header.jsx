@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import location from "../APIs/context";
+// import suitcase from "./assets/suitcase";
 
 const Header = () => {
   let { setDis, setAnimate, currLocation } = useContext(location);
 
   const locationCurr = currLocation[0]
-    ? currLocation[0].display_name
+    ? (currLocation[0].display_name, console.log(currLocation))
     : currLocation.address
     ? currLocation.address.town +
       "," +
@@ -43,7 +44,7 @@ const Header = () => {
       <div className="flex justify-between w-[750px] text-[15px] ">
         <a href="">
           <p className="flex items-center justify-between w-[165px] hover:text-[#FC8019]">
-            <img src="../../src/assets/suitcase.png" alt="" className="h-6" />
+            <img src="/assets/suitcase.png" alt="" className="h-6" />
             Swiggy Corporate
           </p>
         </a>
@@ -67,25 +68,25 @@ const Header = () => {
         </a>
         <a href="">
           <p className="flex items-center justify-between w-[100px] hover:text-[#FC8019]">
-            <img src="../../src/assets/offer.png" alt="" className="h-6" />
+            <img src="/assets/offer.png" alt="" className="h-6" />
             Offers <sup className="text-[10px] text-[#fca919f6]">NEW</sup>
           </p>
         </a>
         <a href="">
           <p className="flex items-center justify-between w-[65px] hover:text-[#FC8019]">
-            <img src="../../src/assets/help.png" alt="" className="h-6" />
+            <img src="/assets/help.png" alt="" className="h-6" />
             Help
           </p>
         </a>
         <a href="">
           <p className="flex items-center justify-between w-[75px] hover:text-[#FC8019]">
-            <img src="../../src/assets/people.png" alt="" className="h-5" />
+            <img src="/assets/people.png" alt="" className="h-5" />
             Sign In
           </p>
         </a>
         <a href="">
           <p className="flex items-center justify-between w-[60px] hover:text-[#FC8019]">
-            <img src="../../src/assets/basket.png" alt="" className="h-5" />
+            <img src="/assets/basket.png" alt="" className="h-5" />
             Cart
           </p>
         </a>

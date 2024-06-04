@@ -53,6 +53,7 @@ const Menu = () => {
     feeDetails,
     sla,
     availabilityServiceabilityMessage,
+    city,
   } = menuData?.data?.cards[2]?.card?.card?.info;
   const offers =
     menuData?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers;
@@ -65,7 +66,7 @@ const Menu = () => {
     <div className="bg-[#f1f1f174] px-[320px] ">
       <div className="py-[20px]">
         <span className="text-[10px] font-nun text-slate-500">
-          Home / {currLocation} /
+          Home / {city} /
         </span>
         <span className="text-[10px] font-nun text-slate-700"> {title}</span>
       </div>
@@ -75,7 +76,7 @@ const Menu = () => {
         <div className="bg-white w-[768px] h-[190px] border-[1px] border-gray-300 mx-[16px] mb-[16px] rounded-3xl">
           <div className="mt-[20px] ml-[16px] font-nun font-bold text-[15px] flex items-center">
             <img
-              src="./assets/star.png"
+              src="/assets/star.png"
               alt=""
               className="h-[18px] w-[18px] mr-[4px]"
             />
@@ -152,17 +153,17 @@ const Menu = () => {
       </div>
 
       <div className="pt-[32px] pb-[16px] text-center flex items-center justify-center">
-        <img src="./assets/vintage.png" alt="" className="h-[50px] w-[50px]" />
+        <img src="/assets/vintage.png" alt="" className="h-[50px] w-[50px]" />
         <span className="mx-[4px] tracking-[4px] text-[#02060C73] text-sm">
           MENU
         </span>
-        <img src="./assets/vintage.png" alt="" className="h-[50px] w-[50px]" />
+        <img src="/assets/vintage.png" alt="" className="h-[50px] w-[50px]" />
       </div>
 
       <button className="text-[gray] text-center w-full h-[48px] bg-[#F0F0F5] rounded-xl relative mb-[50px]">
         Search for dishes
         <img
-          src="./assets/search.png"
+          src="/assets/search.png"
           alt=""
           className="h-[16px] w-[16px] absolute right-[10px] top-[15px]"
         />

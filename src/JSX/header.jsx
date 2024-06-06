@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import location from "../APIs/context";
+import { Link } from "react-router-dom";
 // import suitcase from "./assets/suitcase";
 
 const Header = () => {
@@ -18,13 +19,13 @@ const Header = () => {
     : "";
 
   return (
-    <div
-      className="h-20 flex  items-center justify-around bg-white sticky top-0 px-[30px] z-50"
-      onClick={() => {
-        setDis("block");
-        setAnimate("slideInLeft 0.4s ease-out forwards");
-      }}>
-      <div className="flex justify-start items-center w-[300px] text-center">
+    <div className="h-20 flex  items-center justify-around bg-white sticky top-0 px-[30px] z-50">
+      <div
+        className="flex justify-start items-center w-[300px] text-center"
+        onClick={() => {
+          setDis("block");
+          setAnimate("slideInLeft 0.4s ease-out forwards");
+        }}>
         <img
           src="https://cdn.worldvectorlogo.com/logos/swiggy-1.svg"
           alt=""
@@ -48,7 +49,7 @@ const Header = () => {
             Swiggy Corporate
           </p>
         </a>
-        <a href="">
+        <Link to={"search/"}>
           <p className="flex items-center justify-between w-[75px] hover:text-[#FC8019]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +66,7 @@ const Header = () => {
             </svg>
             Search
           </p>
-        </a>
+        </Link>
         <a href="">
           <p className="flex items-center justify-between w-[100px] hover:text-[#FC8019]">
             <img src="/assets/offer.png" alt="" className="h-6" />

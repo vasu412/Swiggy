@@ -1,5 +1,4 @@
 const MenuItem = ({ item }) => {
-  //   const { info } = item?.card.card;
   let src = "";
   let color = "";
   return (
@@ -17,7 +16,7 @@ const MenuItem = ({ item }) => {
           name,
           ratings,
           id,
-          city,
+          addons,
         } = info;
         src =
           Number(ratings.aggregatedRating.rating) < 3
@@ -33,8 +32,8 @@ const MenuItem = ({ item }) => {
             ? "#1BA672"
             : "#116649";
         return (
-          <>
-            <div className="flex py-[4px] h-[202px]" key={id}>
+          <div key={id}>
+            <div className="flex py-[4px] h-[202px]">
               <div className="w-[552px] h-[74px]">
                 <img
                   src={isVeg === 1 ? "/assets/veg.png" : "/assets/nonVeg.png"}
@@ -72,20 +71,34 @@ const MenuItem = ({ item }) => {
                 </p>
               </div>
               {imageId && (
-                <img
-                  src={
-                    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/" +
-                    imageId
-                  }
-                  alt=""
-                  className="w-[156px] h-[144px] rounded-xl ml-[60px]"
-                />
+                <div className="relative">
+                  <img
+                    src={
+                      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/" +
+                      imageId
+                    }
+                    alt=""
+                    className="w-[156px] h-[144px] rounded-xl ml-[60px]"
+                  />
+                  <button
+                    className="w-[120px] h-[38px] absolute bg-white rounded-lg right-[15px] bottom-[33px] font-[600] text-[18px] border"
+                    style={{ color: "rgb(27, 166, 114)" }}>
+                    ADD
+                  </button>
+                  {addons && (
+                    <p className="text-[12px] absolute bottom-[11px] right-[35px] text-[gray]">
+                      Customisable
+                    </p>
+                  )}
+                </div>
               )}
             </div>
+            {/* <div className=""> */}
+            {/* </div> */}
             {idx < item.length - 1 && (
               <hr className="my-[20px] border-[#d3d3d3b8]" />
             )}
-          </>
+          </div>
         );
       })}
     </>

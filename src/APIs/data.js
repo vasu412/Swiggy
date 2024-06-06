@@ -1,6 +1,14 @@
+import { getCurrentLocation } from "./currLocation";
+
+// window.addEventListener("load", async () => {
+//   const position = await getCurrentLocation();
+//   console.log(position.coords.longitude);
+// });
+
 const coords = localStorage.getItem("coordinates")
   ? localStorage.getItem("coordinates").split(",")
   : ["", ""];
+
 async function loadMoreRestaurants(lat, lng) {
   if (lat == "" && lng == "") {
     lat = coords[0];

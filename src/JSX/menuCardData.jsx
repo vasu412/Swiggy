@@ -1,23 +1,28 @@
 import MenuItem from "./menuItem";
 import { useState } from "react";
 
-const MenuCardData = ({ x }) => {
-  const [showItems, setShowItems] = useState(true);
+const MenuCardData = ({ x, showItems, setShowIndex }) => {
   const { title, itemCards } = x.card.card;
+  // const [show, setShow] = useState(false);
   return (
     <>
       <div
         className="flex justify-between mx-[17px] my-[20px] cursor-pointer"
         onClick={() => {
-          setShowItems(!showItems);
+          setShowIndex();
+          // setShow(!show);
         }}>
         <h1 className=" font-[600] text-[16px]">
           {title} ({itemCards.length})
         </h1>
-        <i className="material-icons">keyboard_arrow_down</i>
+        {showItems ? (
+          <i className="material-icons">keyboard_arrow_up</i>
+        ) : (
+          <i className="material-icons ">keyboard_arrow_down</i>
+        )}
       </div>
       <div className="mx-[17px]">
-        {showItems && <MenuItem item={itemCards} key={title} />}
+        {showItems && <MenuItem item={itemCards} />}
       </div>
     </>
   );

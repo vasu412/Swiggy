@@ -6,7 +6,6 @@ import Box from "./resBox";
 
 const ItemRes = () => {
   const { id } = useParams();
-  const arr = id.split("&");
 
   const [data, setData] = useState(null);
 
@@ -34,10 +33,10 @@ const ItemRes = () => {
       </div>
       <div className="flex mx-[17px] mt-[10px] flex-wrap gap-y-[28px] gap-x-[5px]">
         {data?.data?.cards.map((item, index) => {
-          const id = item?.card?.card?.info?.id;
+          const idx = item?.card?.card?.info?.id;
           if (index > 2)
             return (
-              <Link key={id} to={"menu/" + id}>
+              <Link key={idx} to={"menu/" + idx}>
                 <Box
                   data={item?.card?.card?.info}
                   height={"182px"}

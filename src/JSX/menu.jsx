@@ -12,12 +12,12 @@ const Menu = () => {
 
   const { id } = useParams();
   const [menuData, setMenuData] = useState(null);
+  const [showIndex, setShowIndex] = useState(null);
 
   useEffect(() => {
     async function cards() {
       const data = await menuCard(id, coordinates.lat, coordinates.lng);
       setMenuData(data);
-      console.log(data);
     }
     cards();
   }, [id]);
@@ -42,7 +42,7 @@ const Menu = () => {
     );
   }
 
-  // console.log(menuData);
+  console.log(menuData);
   const title = menuData?.data?.cards[0]?.card?.card?.text;
   const {
     avgRating,
@@ -128,8 +128,11 @@ const Menu = () => {
 
       <div className="h-[76px] flex overflow-y-hidden items-center hide">
         {offers.map(({ info }) => {
+          const idx = info.restId;
           return (
-            <div className="p-[12px] min-w-[300px] h-[75px] border flex items-center rounded-[19px] mr-[16px]">
+            <div
+              className="p-[12px] min-w-[300px] h-[75px] border flex items-center rounded-[19px] mr-[16px]"
+              key={idx}>
               <div>
                 <img
                   src={
@@ -175,18 +178,25 @@ const Menu = () => {
           if (idx === 0 || idx > cards.length - 3) return "";
           else {
             return (
-              <>
+              <div key={idx}>
                 {x?.card?.card?.categories ? (
-                  <MenuCardData2 x={x} />
+                  <MenuCardData2
+                    x={x}
+                    showItems={showIndex === idx ? true : false}
+                  />
                 ) : x?.card?.card?.carousel ? (
                   <MenuCarousel x={x} />
                 ) : (
                   <>
-                    <MenuCardData x={x} />
+                    <MenuCardData
+                      x={x}
+                      showItems={showIndex === idx ? true : false}
+                      setShowIndex={() => setShowIndex(idx)}
+                    />
                     <hr className="my-[24px] mx-[16px] border-[8px] border-[#f0f0f0]" />
                   </>
                 )}
-              </>
+              </div>
             );
           }
         })}

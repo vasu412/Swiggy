@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 const Item = ({ img, link }) => {
   const id = link.substring(link.indexOf("=") + 1);
   const arr = id.split("&");
-  // console.log(id, arr[0]);
   return (
     <div className="p-[16px] ">
       <div>

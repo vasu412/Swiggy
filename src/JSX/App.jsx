@@ -4,6 +4,7 @@ import location from "../APIs/context";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import ItemRes from "./itemRes";
+import Search from "./search";
 
 function App() {
   const [dis, setDis] = useState("none");

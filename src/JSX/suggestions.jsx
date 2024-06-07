@@ -1,11 +1,12 @@
-const Suggestions = ({ searchTerm }) => {
+const Suggestions = ({ searchTerm, handleSubmit }) => {
   {
     return searchTerm.map((x, idx) => {
-      const { subCategory, cloudinaryId, text } = x;
+      const { subCategory, cloudinaryId, text, cta } = x;
       return (
         <div
-          className="py-[14px] px-[16px] flex w-[844px] h-[92px] hover:bg-[#eaf1fa] cursor-pointer"
-          key={idx}>
+          className="py-[14px] px-[16px] flex w-[844px] h-[92px] hover:bg-[#eaf1fad9] cursor-pointer"
+          key={idx}
+          onClick={() => handleSubmit(text, cta.link)}>
           <img
             src={
               "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_112,h_112,c_fill/" +

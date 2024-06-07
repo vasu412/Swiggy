@@ -93,8 +93,6 @@ const MenuItem = ({ item }) => {
                 </div>
               )}
             </div>
-            {/* <div className=""> */}
-            {/* </div> */}
             {idx < item.length - 1 && (
               <hr className="my-[20px] border-[#d3d3d3b8]" />
             )}

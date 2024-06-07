@@ -2,12 +2,20 @@ const coords = localStorage.getItem("coordinates")
   ? localStorage.getItem("coordinates").split(",")
   : ["", ""];
 
-export async function submit() {
-  const response = await fetch(
-    `https://www.swiggy.com/dapi/restaurants/search/v3?lat=28.7040592&lng=77.10249019999999&str=subway&trackingId=undefined&submitAction=SUGGESTION&metadata=%7B%22type%22%3A%22DISH%22%2C%22data%22%3A%7B%22vegIdentifier%22%3A%22None%22%2C%22cloudinaryId%22%3A%226ce248f463873874b4fe6d8b40b634a3%22%7D%2C%22businessCategory%22%3A%22SWIGGY_FOOD%22%2C%22displayLabel%22%3A%22Dish%22%7D&marketplace=%7B%22marketplaceId%22%3A%22SWIGGY%22%2C%22businessLineId%22%3A%22FOOD%22%7D`
+export async function submit1(dish) {
+  const response1 = await fetch(
+    `https://www.swiggy.com/dapi/restaurants/search/v3?lat=28.7040592&lng=77.10249019999999&str=${dish[0]}&trackingId=undefined&submitAction=SUGGESTION&${dish[1]}&${dish[2]}&selectedPLTab=DISH`
   );
-  const data = await response.json();
-  console.log(data);
+  const data1 = await response1.json();
+  return data1;
+}
+
+export async function submit2(dish) {
+  const response2 = await fetch(
+    `https://www.swiggy.com/dapi/restaurants/search/v3?lat=28.7040592&lng=77.10249019999999&str=${dish[0]}&trackingId=undefined&submitAction=SUGGESTION&${dish[1]}&${dish[2]}&selectedPLTab=RESTAURANT`
+  );
+  const data2 = await response2.json();
+  return data2;
 }
 
 async function search() {

@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import location from "../APIs/context";
 import { Link } from "react-router-dom";
-// import suitcase from "./assets/suitcase";
 
 const Header = () => {
   let { setDis, setAnimate, currLocation } = useContext(location);

@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import search, { submit, suggestions } from "../APIs/search";
+import search, { submit1, submit2, suggestions } from "../APIs/search";
 import Suggestions from "./suggestions";
 import Shimmer from "./shimmer";
+import SearchDish from "./searchDish";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [typing, setTyping] = useState(false);
   const [searchPage, setSearchPage] = useState("");
   const [inputValue, setInputValue] = useState("");
+  const [submitDish, setSubmitDish] = useState(false);
+  const [submitDishData, setSubmitDishData] = useState("");
+  const [submitRestaurantData, setSubmitRestaurantData] = useState("");
 
   useEffect(() => {
     async function fetch() {
@@ -21,7 +25,6 @@ const Search = () => {
     async function fetchSuggestions(query) {
       if (query.length > 1) {
         const data = await suggestions(query);
-        console.log(data);
         setSearchTerm(data.data.suggestions);
         setTyping(true);
       } else {
@@ -34,10 +37,18 @@ const Search = () => {
     }
   }, [inputValue]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const val = e.target[0].value;
-    submit();
+  function handleSubmit(text, link) {
+    setInputValue(text);
+    const val = link.substring(link.indexOf("=") + 1);
+    const dish = val.split("&");
+    async function fetch() {
+      const data1 = await submit1(dish);
+      const data2 = await submit2(dish);
+      setSubmitDishData(data1?.data?.cards[0]);
+      setSubmitRestaurantData(data2?.data?.cards[0]);
+      setSubmitDish(true);
+    }
+    fetch();
   }
 
   function handleSuggestions(e) {
@@ -48,7 +59,7 @@ const Search = () => {
   return (
     <div className="bg-[#f1f1f18c] h-[89vh]">
       <div className="pt-[48px] pb-[8px] flex justify-center">
-        <form action="#" className="relative" onSubmit={(e) => handleSubmit(e)}>
+        <form action="#" className="relative">
           <input
             type="text"
             placeholder="Search for restaurants and food"
@@ -60,16 +71,24 @@ const Search = () => {
             className="absolute right-[10px] top-[12px] h-[20px] w-[20px] cursor-pointer"
             onClick={(e) => {
               typing &&
-                (setSearchTerm(""), setTyping(false), setInputValue(""));
+                (setSearchTerm(""),
+                setTyping(false),
+                setInputValue(""),
+                setSubmitDish(false));
             }}>
             <i className="material-icons">{typing ? "close" : "search"}</i>
           </span>
         </form>
       </div>
 
-      {searchTerm !== "" ? (
+      {submitDish ? (
+        <SearchDish
+          submitDishData={submitDishData}
+          submitRestaurantData={submitRestaurantData}
+        />
+      ) : searchTerm !== "" ? (
         <div className="flex flex-col items-center overflow-scroll h-[75vh]">
-          <Suggestions searchTerm={searchTerm} />
+          <Suggestions searchTerm={searchTerm} handleSubmit={handleSubmit} />
         </div>
       ) : (
         <div className="mx-[290px]">

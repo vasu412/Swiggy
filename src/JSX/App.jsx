@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import ItemRes from "./itemRes";
 import Search from "./search";
+import SearchDish from "./searchDish";
 
 function App() {
   const [dis, setDis] = useState("none");

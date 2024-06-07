@@ -33,6 +33,10 @@ const router = createBrowserRouter([
         path: "search/",
         element: <Search />,
       },
+      {
+        path: "search/menu:id",
+        element: <Menu />,
+      },
     ],
   },
 ]);

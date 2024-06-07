@@ -3,6 +3,8 @@ import search, { submit1, submit2, suggestions } from "../APIs/search";
 import Suggestions from "./suggestions";
 import Shimmer from "./shimmer";
 import SearchDish from "./searchDish";
+import { Outlet } from "react-router-dom";
+import { submittedData } from "../APIs/context";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,6 +41,7 @@ const Search = () => {
 
   function handleSubmit(text, link) {
     setInputValue(text);
+    setSubmitDish(true);
     const val = link.substring(link.indexOf("=") + 1);
     const dish = val.split("&");
     async function fetch() {
@@ -46,7 +49,6 @@ const Search = () => {
       const data2 = await submit2(dish);
       setSubmitDishData(data1?.data?.cards[0]);
       setSubmitRestaurantData(data2?.data?.cards[0]);
-      setSubmitDish(true);
     }
     fetch();
   }
@@ -54,6 +56,9 @@ const Search = () => {
   function handleSuggestions(e) {
     setInputValue(e.target.value);
   }
+
+  if (submitDish && (submitDishData === "" || submitRestaurantData === ""))
+    return <Shimmer />;
 
   if (searchPage === "") return <Shimmer />;
   return (
@@ -82,10 +87,10 @@ const Search = () => {
       </div>
 
       {submitDish ? (
-        <SearchDish
-          submitDishData={submitDishData}
-          submitRestaurantData={submitRestaurantData}
-        />
+        <submittedData.Provider
+          value={{ submitDishData, submitRestaurantData, inputValue }}>
+          <Outlet />
+        </submittedData.Provider>
       ) : searchTerm !== "" ? (
         <div className="flex flex-col items-center overflow-scroll h-[75vh]">
           <Suggestions searchTerm={searchTerm} handleSubmit={handleSubmit} />

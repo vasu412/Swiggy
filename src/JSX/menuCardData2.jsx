@@ -9,6 +9,7 @@ const MenuCardData2 = ({ x }) => {
       <h1 className=" font-[600] text-[16px] mx-[15px] my-[24px]">{title}</h1>
       {categories.map((item, idx) => {
         let showItems = idx === showIndex ? true : false;
+        const [show, setShow] = useState(false);
         return (
           <div key={idx}>
             <div className="flex flex-col">
@@ -16,18 +17,21 @@ const MenuCardData2 = ({ x }) => {
                 className="flex justify-between mx-[17px] cursor-pointer"
                 onClick={() => {
                   setShowIndex(idx);
+                  setShow(!show);
                 }}>
                 <h1 className="font-nun font-bold text-[16px]">
                   {item.title} ({item.itemCards?.length})
                 </h1>
-                {showItems ? (
+                {showItems && show ? (
                   <i className="material-icons ">keyboard_arrow_up</i>
                 ) : (
                   <i className="material-icons ">keyboard_arrow_down</i>
                 )}
               </div>
               <div className="mx-[17px]">
-                {showItems && <MenuItem item={item.itemCards} key={title} />}
+                {showItems && show && (
+                  <MenuItem item={item.itemCards} key={title} />
+                )}
               </div>
             </div>
             {idx === categories.length - 1 ? (

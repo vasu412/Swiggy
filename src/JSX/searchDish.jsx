@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Restaurant from "./restaurant";
 import Dish from "./dish";
+import { submittedData } from "../APIs/context";
 
-const SearchDish = ({ submitDishData, submitRestaurantData }) => {
+const SearchDish = () => {
+  const { submitDishData, submitRestaurantData } = useContext(submittedData);
   const [isDish, setIsDish] = useState(false);
   const [isRes, setIsRes] = useState(true);
   const dishes = submitDishData?.groupedCard?.cardGroupMap?.DISH?.cards;
   const restaurants =
     submitRestaurantData?.groupedCard?.cardGroupMap?.RESTAURANT?.cards;
-  console.log(dishes, submitRestaurantData);
   return (
     <>
       <button
@@ -35,7 +36,7 @@ const SearchDish = ({ submitDishData, submitRestaurantData }) => {
         }}>
         Dishes
       </button>
-      <div className="mx-[290px]  bg-[#e9eaeed2] h-[70.9vh] overflow-scroll hide">
+      <div className="mx-[290px] mt-[10px] bg-[#e9eaeed2] h-[70.9vh] overflow-scroll hide">
         <div className="flex flex-wrap justify-center items-center">
           {isRes &&
             restaurants.map((x) => (
@@ -45,7 +46,7 @@ const SearchDish = ({ submitDishData, submitRestaurantData }) => {
               />
             ))}
         </div>
-        <div className="flex flex-wrap justify-around items-center">
+        <div className="flex flex-wrap justify-around items-center px-[8px]">
           {isDish &&
             dishes.map((x, idx) => {
               return (

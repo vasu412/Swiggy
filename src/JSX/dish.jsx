@@ -4,7 +4,7 @@ const Dish = ({ data }) => {
   const { info, restaurant } = data;
   const { sla, id, name, avgRating } = restaurant.info;
   return (
-    <div className="mt-[20px] w-[410px] h-[276px] px-[16px] pt-[22px] pb-[8px] rounded-[15px] bg-[white]">
+    <div className="mt-[20px] w-[410px] h-[276px] px-[16px] pt-[22px] pb-[8px] rounded-[19px] bg-[white]">
       <div>
         <Link key={id} to={"menu/" + id}>
           <div className="flex justify-between">

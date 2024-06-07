@@ -42,7 +42,6 @@ const Menu = () => {
     );
   }
 
-  console.log(menuData);
   const title = menuData?.data?.cards[0]?.card?.card?.text;
   const {
     avgRating,

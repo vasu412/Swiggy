@@ -13,11 +13,16 @@ const Body = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const cardData = await loadMoreRestaurants(
-        coordinates.lat,
-        coordinates.lng
-      );
-      setCards(cardData);
+      try {
+        const cardData = await loadMoreRestaurants(
+          coordinates.lat,
+          coordinates.lng
+        );
+        setCards(cardData);
+      } catch (err) {
+        console.log(err);
+        // return <Shimmer />;
+      }
     }
     fetchData();
   }, []);

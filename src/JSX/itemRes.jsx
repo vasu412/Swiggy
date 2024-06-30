@@ -17,8 +17,9 @@ const ItemRes = () => {
     items();
   }, [id]);
 
-  if (data === null) return <Shimmer />;
+  if (data === null || data.statusMessage === "") return <Shimmer />;
 
+  console.log(data);
   const { title, description } = data?.data?.cards[0]?.card?.card;
   const text =
     data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle.text;

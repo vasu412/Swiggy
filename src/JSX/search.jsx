@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import search, { submit1, submit2, suggestions } from "../APIs/search";
 import Suggestions from "./suggestions";
-import Shimmer from "./shimmer";
-import SearchDish from "./searchDish";
 import { Outlet } from "react-router-dom";
 import { submittedData } from "../APIs/context";
+import SearchShimmer from "./searchShimmer";
+import SearchShimmer2 from "./searchShimmer2";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -57,10 +57,7 @@ const Search = () => {
     setInputValue(e.target.value);
   }
 
-  if (submitDish && (submitDishData === "" || submitRestaurantData === ""))
-    return <Shimmer />;
-
-  if (searchPage === "") return <Shimmer />;
+  if (searchPage === "") return <SearchShimmer2 />;
   return (
     <div className="bg-[#f1f1f18c] h-[89vh]">
       <div className="pt-[48px] pb-[8px] flex justify-center">

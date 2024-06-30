@@ -1,24 +1,16 @@
 const Box = (props) => {
-  const {
-    aggregatedDiscountInfoV3,
-    areaName,
-    avgRating,
-    cloudinaryImageId,
-    sla,
-    name,
-    cuisines,
-  } = props.data;
+  const { avgRating, cloudinaryImageId, sla, name, cuisines } = props.data;
 
   const { height, width, top } = props;
 
   let offer = "";
-  if (aggregatedDiscountInfoV3 === undefined) {
+  if (props.data.aggregatedDiscountInfoV3 === undefined) {
     offer = "";
   } else {
     offer =
-      aggregatedDiscountInfoV3.header +
+      props.data.aggregatedDiscountInfoV3.header +
       " " +
-      aggregatedDiscountInfoV3.subHeader;
+      props.data.aggregatedDiscountInfoV3.subHeader;
   }
   return (
     <div
@@ -55,7 +47,7 @@ const Box = (props) => {
           {cuisines.map((x) => x).join(", ")}
         </span>
         <span className="text-[15px] text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap">
-          {areaName}
+          {props.data.areaName}
         </span>
       </div>
     </div>

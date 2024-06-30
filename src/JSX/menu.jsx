@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import menuCard from "../APIs/menuCard";
-import Shimmer from "./shimmer";
 import location from "../APIs/context";
 import MenuCardData from "./menuCardData";
 import { useParams } from "react-router-dom";
 import MenuCardData2 from "./menuCardData2";
 import MenuCarousel from "./menuCarousel";
+import MenuShimmer from "./menuShimmer";
 
 const Menu = () => {
   let { coordinates } = useContext(location);
@@ -22,7 +22,7 @@ const Menu = () => {
     cards();
   }, [id]);
 
-  if (menuData === null) return <Shimmer />;
+  if (menuData === null) return <MenuShimmer />;
   if (
     menuData.statusMessage === "Oops!! Something Went Wrong"
     // cards.data.cards[0].card.card.title === "Location Unserviceable"
@@ -62,7 +62,7 @@ const Menu = () => {
     "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_96,h_96/";
 
   return (
-    <div className="bg-[#f1f1f174] px-[320px] ">
+    <div className="bg-[#f1f1f174] px-[320px]">
       <div className="py-[20px]">
         <span className="text-[10px] font-nun text-slate-500">
           Home / {city} /
@@ -125,12 +125,12 @@ const Menu = () => {
         Deals for you
       </h1>
 
-      <div className="h-[76px] flex overflow-y-hidden items-center hide">
+      <div className="h-[76px] w-full flex overflow-y-hidden items-center hide ">
         {offers.map(({ info }) => {
           const idx = info.restId;
           return (
             <div
-              className="p-[12px] min-w-[300px] h-[75px] border flex items-center rounded-[19px] mr-[16px]"
+              className="p-[12px] !min-w-[300px] h-[75px] border border-solid border-gray-300 flex items-center rounded-[19px] mr-[16px]"
               key={idx}>
               <div>
                 <img

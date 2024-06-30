@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import Restaurant from "./restaurant";
 import Dish from "./dish";
 import { submittedData } from "../APIs/context";
+import SearchShimmer from "./searchShimmer";
 
 const SearchDish = () => {
   const { submitDishData, submitRestaurantData } = useContext(submittedData);
@@ -10,6 +11,9 @@ const SearchDish = () => {
   const dishes = submitDishData?.groupedCard?.cardGroupMap?.DISH?.cards;
   const restaurants =
     submitRestaurantData?.groupedCard?.cardGroupMap?.RESTAURANT?.cards;
+
+  if (submitDishData === "" || submitRestaurantData === "")
+    return <SearchShimmer />;
   return (
     <>
       <button

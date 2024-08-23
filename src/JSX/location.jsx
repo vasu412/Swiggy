@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import location from "../APIs/context";
 import { getAddress, getCurrentLocation } from "../APIs/currLocation";
 import getCoordinates, { place } from "../APIs/coordinates";

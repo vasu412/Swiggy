@@ -1,30 +1,3 @@
-import { getAddress, getCurrentLocation } from "./currLocation";
-
-window.addEventListener("load", async () => {
-  const position = await getCurrentLocation();
-  if (!localStorage.getItem("coordinates")) {
-    localStorage.setItem(
-      "coordinates",
-      position.coords.latitude + "," + position.coords.longitude
-    );
-
-    const currLocation = await getAddress();
-    const locationCurr = currLocation[0]
-      ? currLocation[0].display_name
-      : currLocation.address
-      ? currLocation.address.town +
-        "," +
-        currLocation.address.state +
-        " " +
-        currLocation.address.postcode +
-        "," +
-        currLocation.address.country
-      : "";
-
-    localStorage.setItem("currLocation", locationCurr);
-  }
-});
-
 const coords = localStorage.getItem("coordinates")
   ? localStorage.getItem("coordinates").split(",")
   : ["", ""];

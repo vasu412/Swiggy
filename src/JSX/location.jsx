@@ -59,6 +59,8 @@ const Location = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setDis("none");
+    setCards(null);
     const address = e.target[0].value;
     const cord = await getCoordinates(address);
     const cord2 = await place(address);
@@ -71,7 +73,6 @@ const Location = () => {
     // console.log(localStorage.getItem("coordinates"));
     setCurrLocation(cord2);
     e.target[0].value = "";
-    setDis("none");
   };
 
   return (
@@ -99,15 +100,17 @@ const Location = () => {
               <input
                 type="text"
                 placeholder="Search for area, street name.."
-                className="w-[360px] h-[50px] pl-[20px] pr-[72px] border-[1px] border-[rgb(118, 118, 118)] font-nun"
+                className="w-[360px] h-[50px] pl-[20px] pr-[72px] border-[1px] border-[rgb(118, 118, 118)] outline-none font-nun"
                 // onKeyUp={(e) => autoComplete(e.target.value)}
               />
               <button type="submit" className="none"></button>
             </form>
           </div>
           <div
-            className="mt-[28px] group cursor-pointer"
+            className="mt-[28px] group cursor-pointer border-[1px] border-solid border-[rgb(118, 118, 118)]"
             onClick={async () => {
+              setDis("none");
+              setCards(null);
               const loc = getAddress();
               const locData = await loc;
               setCurrLocation(locData);
@@ -119,9 +122,8 @@ const Location = () => {
                   [coordinates.lng]: longitude,
                 };
               });
-              setDis("none");
             }}>
-            <div className="px-[24px] py-[22px] border-[rgb(118, 118, 118)] border-[1px] flex">
+            <div className="px-[24px] py-[22px] flex">
               <span className="mr-[10px]">
                 <i className="material-icons">my_location</i>
               </span>

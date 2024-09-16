@@ -19,15 +19,16 @@ const Body = () => {
           coordinates.lng
         );
         setCards(cardData);
+        console.log(cardData);
       } catch (err) {
         console.log(err);
-        // return <Shimmer />;
+        setCards(null);
       }
     }
     fetchData();
   }, []);
 
-  if (cards === null || cards.statusMessage === "Lat or Lng is missing") {
+  if (!cards || cards.statusMessage === "Lat or Lng is missing") {
     return <Shimmer />;
   }
 

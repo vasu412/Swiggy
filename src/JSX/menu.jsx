@@ -12,7 +12,7 @@ const Menu = () => {
 
   const { id } = useParams();
   const [menuData, setMenuData] = useState(null);
-  const [showIndex, setShowIndex] = useState(null);
+  const [showIndex, setShowIndex] = useState(0);
 
   useEffect(() => {
     async function cards() {

@@ -5,18 +5,6 @@ import { Link } from "react-router-dom";
 const Header = () => {
   let { setDis, setAnimate, currLocation } = useContext(location);
 
-  const locationCurr = currLocation[0]
-    ? (currLocation[0].display_name, console.log(currLocation))
-    : currLocation.address
-    ? currLocation.address.town +
-      "," +
-      currLocation.address.state +
-      " " +
-      currLocation.address.postcode +
-      "," +
-      currLocation.address.country
-    : "";
-
   return (
     <div className="h-20 flex  items-center justify-around bg-white sticky top-0 px-[30px] z-50">
       <div
@@ -35,7 +23,7 @@ const Header = () => {
             Other
           </span>
           <span className=" font-nun tracking-widest text-xs font-thin text-slate-600 hover:text-slate-500 text-ellipsis whitespace-nowrap overflow-hidden mr-[30px]">
-            {localStorage.getItem("currLocation") || locationCurr}
+            {localStorage.getItem("currLocation") || currLocation}
           </span>
           <i className="material-icons text-[#FC8019]">keyboard_arrow_down</i>
         </div>

@@ -15,28 +15,29 @@ function App() {
   useEffect(() => {
     async function address() {
       const position = await getCurrentLocation();
-      const currLocation = await getAddress();
-      const locationCurr = currLocation[0]
-        ? currLocation[0].display_name
-        : currLocation.address
-        ? currLocation.address.town +
+      const currLoc = await getAddress();
+      const locationCurr = currLoc[0]
+        ? currLoc[0].display_name
+        : currLoc.address
+        ? currLoc.address.town +
           "," +
-          currLocation.address.state +
+          currLoc.address.state +
           " " +
-          currLocation.address.postcode +
+          currLoc.address.postcode +
           "," +
-          currLocation.address.country
+          currLoc.address.country
         : "";
 
       if (
         !localStorage.getItem("coordinates") &&
         !localStorage.getItem("currLocation")
       ) {
-        setCurrLocation(currLocation);
+        setCurrLocation(locationCurr);
         setCoordinates({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
+
         localStorage.setItem(
           "coordinates",
           position.coords.latitude + "," + position.coords.longitude

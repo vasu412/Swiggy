@@ -19,7 +19,6 @@ const Body = () => {
           coordinates.lng
         );
         setCards(cardData);
-        console.log(cardData);
       } catch (err) {
         console.log(err);
         setCards(null);

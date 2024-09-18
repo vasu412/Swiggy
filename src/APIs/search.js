@@ -4,7 +4,7 @@ const coords = localStorage.getItem("coordinates")
 
 export async function submit1(dish) {
   const response1 = await fetch(
-    `https://www.swiggy.com/dapi/restaurants/search/v3?lat=28.7040592&lng=77.10249019999999&str=${dish[0]}&trackingId=undefined&submitAction=SUGGESTION&${dish[1]}&${dish[2]}&selectedPLTab=DISH`
+    `http://localhost:2000/api/first_submit?lat=${coords[0]}&lng=${coords[1]}&str=${dish[0]}&dish1=${dish[1]}&dish2=${dish[2]}`
   );
   const data1 = await response1.json();
   return data1;
@@ -12,7 +12,7 @@ export async function submit1(dish) {
 
 export async function submit2(dish) {
   const response2 = await fetch(
-    `https://www.swiggy.com/dapi/restaurants/search/v3?lat=28.7040592&lng=77.10249019999999&str=${dish[0]}&trackingId=undefined&submitAction=SUGGESTION&${dish[1]}&${dish[2]}&selectedPLTab=RESTAURANT`
+    `http://localhost:2000/api/second_submit?lat=${coords[0]}&lng=${coords[1]}&str=${dish[0]}&dish1=${dish[1]}&dish2=${dish[2]}`
   );
   const data2 = await response2.json();
   return data2;
@@ -20,7 +20,7 @@ export async function submit2(dish) {
 
 async function search() {
   const response = await fetch(
-    `https://www.swiggy.com/dapi/landing/PRE_SEARCH?lat=${coords[0]}&lng=${coords[1]}`
+    `http://localhost:2000/api/search?lat=${coords[0]}&lng=${coords[1]}`
   );
   const data = await response.json();
   return data;
@@ -28,7 +28,7 @@ async function search() {
 
 export async function suggestions(string) {
   const response = await fetch(
-    `https://www.swiggy.com/dapi/restaurants/search/suggest?lat=${coords[0]}&lng=${coords[1]}&str=${string}&trackingId=null`
+    `http://localhost:2000/api/suggestions?lat=${coords[0]}&lng=${coords[1]}&string=${string}`
   );
   const data = await response.json();
   return data;

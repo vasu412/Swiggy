@@ -12,11 +12,12 @@ const Menu = () => {
 
   const { id } = useParams();
   const [menuData, setMenuData] = useState(null);
-  const [showIndex, setShowIndex] = useState(0);
+  const [showIndex, setShowIndex] = useState(null);
 
   useEffect(() => {
     async function cards() {
       const data = await menuCard(id, coordinates.lat, coordinates.lng);
+      console.log(data);
       setMenuData(data);
     }
     cards();

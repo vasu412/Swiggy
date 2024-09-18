@@ -20,6 +20,7 @@ const Location = () => {
   const [suggesstions, setSuggesstions] = useState(null);
   const [typing, setTying] = useState(false);
   const [inputVal, setInputVal] = useState("");
+
   const recentLocations = localStorage.getItem("recentLocations")
     ? JSON.parse(localStorage.getItem("recentLocations"))
     : [];
@@ -163,7 +164,7 @@ const Location = () => {
             </div>
           )}
 
-          {!typing && (
+          {!typing && recentLocations.length != 0 && (
             <div className="mt-[28px] group cursor-pointer border-[1px] border-solid border-[#76767628]">
               <div className="px-[24px] pt-[22px] flex">
                 <span>

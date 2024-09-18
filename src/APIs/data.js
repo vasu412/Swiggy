@@ -9,10 +9,9 @@ async function loadMoreRestaurants(lat, lng) {
   }
   try {
     const data = await fetch(
-      `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&offset=0&limit=100&collection=83667`
+      `http://localhost:2000/api/restaurants?lat=${lat}&lng=${lng}`
     );
     const res = await data.json();
-    // console.log(res);
     return res;
   } catch {
     console.log("error");

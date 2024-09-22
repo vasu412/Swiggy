@@ -4,9 +4,11 @@ import location from "../APIs/context";
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { getAddress, getCurrentLocation } from "../APIs/currLocation";
+import LogIn from "./logIn";
 
 function App() {
   const [dis, setDis] = useState("none");
+  const [dis2, setDis2] = useState("hidden");
   const [animate, setAnimate] = useState("slideInLeft 0.4s ease-out");
   const [currLocation, setCurrLocation] = useState("");
   const [cards, setCards] = useState(null);
@@ -64,9 +66,12 @@ function App() {
           setCards,
           coordinates,
           setCoordinates,
+          dis2,
+          setDis2,
         }}>
         <Header />
         <Location />
+        <LogIn />
         <Outlet />
       </location.Provider>
     </div>

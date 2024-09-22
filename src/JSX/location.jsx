@@ -107,7 +107,7 @@ const Location = () => {
     if (e.target.value != "") setTying(true);
     else setTying(false);
     const data = await fetch(
-      `https://www.swiggy.com/dapi/misc/place-autocomplete?input=${e.target.value}&types=`
+      `http://localhost:2000/api/autocomplete?string=${e.target.value}`
     );
     const res = await data.json();
     setSuggesstions(res.data);
@@ -118,7 +118,7 @@ const Location = () => {
       className="h-[100vh] w-[100vw] bg-[#282c3fb3] fixed z-[999] top-0"
       style={{ display: dis }}>
       <div
-        className="w-[522px] h-[100vh] flex flex-col bg-white  justify-between fixed  loc "
+        className="w-[522px] h-[100vh] flex flex-col bg-white  justify-between fixed loc "
         style={{ animation: animate }}>
         <div className="pl-[120px] pr-[40px] flex flex-col mt-[32px]">
           <div className="mb-[30px]">

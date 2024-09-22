@@ -3,7 +3,7 @@ import location from "../APIs/context";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  let { setDis, setAnimate, currLocation } = useContext(location);
+  let { setDis, setAnimate, currLocation, setDis2 } = useContext(location);
 
   return (
     <div className="h-20 flex  items-center justify-around bg-white sticky top-0 px-[30px] z-50">
@@ -66,12 +66,12 @@ const Header = () => {
             Help
           </p>
         </a>
-        <a href="">
-          <p className="flex items-center justify-between w-[75px] hover:text-[#FC8019]">
-            <img src="/assets/people.png" alt="" className="h-5" />
-            Sign In
-          </p>
-        </a>
+        <p
+          className="flex items-center justify-between w-[75px] hover:text-[#FC8019] cursor-pointer"
+          onClick={() => setDis2("block")}>
+          <img src="/assets/people.png" alt="" className="h-5" />
+          Sign In
+        </p>
         <a href="">
           <p className="flex items-center justify-between w-[60px] hover:text-[#FC8019]">
             <img src="/assets/basket.png" alt="" className="h-5" />

@@ -1,17 +1,20 @@
 import { Link, useParams } from "react-router-dom";
 import itemRes from "../APIs/itemRes";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Shimmer from "./shimmer";
 import Box from "./resBox";
+import location from "../APIs/context";
 
 const ItemRes = () => {
   const { id } = useParams();
+  const { coordinates } = useContext(location);
 
+  console.log(coordinates);
   const [data, setData] = useState(null);
 
   useEffect(() => {
     async function items() {
-      const data = await itemRes(id);
+      const data = await itemRes(id, coordinates.lat, coordinates.long);
       setData(data);
     }
     items();
@@ -21,8 +24,8 @@ const ItemRes = () => {
 
   console.log(data);
   const { title, description } = data?.data?.cards[0]?.card?.card;
-  const text =
-    data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle.text;
+  // const text =
+  //   data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle.text;
   return (
     <div className="px-[90px] bg-[#f1f1f174] min-h-[88vh]">
       <div className="pt-[60px] pl-[18px] pb-[8px]">

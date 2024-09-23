@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import location from "../APIs/context";
 import { getAddress, getCurrentLocation } from "../APIs/currLocation";
-import getCoordinates, { place } from "../APIs/coordinates";
-import loadMoreRestaurants from "../APIs/data";
+import getCoordinates from "../APIs/coordinates";
 
 const Location = () => {
   let {
@@ -33,23 +32,6 @@ const Location = () => {
       );
 
       localStorage.setItem("currLocation", currLocation);
-    }
-  }, [coordinates]);
-
-  useEffect(() => {
-    if (coordinates) {
-      async function fetchData() {
-        try {
-          const cardData = await loadMoreRestaurants(
-            coordinates.lat,
-            coordinates.long
-          );
-          setCards(cardData);
-        } catch {
-          console.log("error");
-        }
-      }
-      fetchData();
     }
   }, [coordinates]);
 

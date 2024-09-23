@@ -12,7 +12,7 @@ function App() {
   const [animate, setAnimate] = useState("slideInLeft 0.4s ease-out");
   const [currLocation, setCurrLocation] = useState("");
   const [cards, setCards] = useState(null);
-  const [coordinates, setCoordinates] = useState({ lat: "", lng: "" });
+  const [coordinates, setCoordinates] = useState({ lat: "", long: "" });
 
   useEffect(() => {
     async function address() {
@@ -37,7 +37,7 @@ function App() {
         setCurrLocation(locationCurr);
         setCoordinates({
           lat: position.coords.latitude,
-          lng: position.coords.longitude,
+          long: position.coords.longitude,
         });
 
         localStorage.setItem(
@@ -49,6 +49,17 @@ function App() {
       }
     }
 
+    if (
+      localStorage.getItem("coordinates") &&
+      localStorage.getItem("currLocation")
+    ) {
+      const coords = localStorage.getItem("coordinates").split(",");
+      setCoordinates({
+        lat: coords[0],
+        long: coords[1],
+      });
+      setCurrLocation(localStorage.getItem("currLocation"));
+    }
     address();
   }, []);
 

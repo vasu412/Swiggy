@@ -21,7 +21,7 @@ const Menu = () => {
       setMenuData(data);
     }
     cards();
-  }, [id]);
+  }, [id, coordinates]);
 
   if (menuData === null) return <MenuShimmer />;
   if (

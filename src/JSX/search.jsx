@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import search, { submit1, submit2, suggestions } from "../APIs/search";
 import Suggestions from "./suggestions";
 import { Outlet } from "react-router-dom";
-import { submittedData } from "../APIs/context";
-import SearchShimmer from "./searchShimmer";
+import location, { submittedData } from "../APIs/context";
 import SearchShimmer2 from "./searchShimmer2";
 
 const Search = () => {
@@ -14,10 +13,12 @@ const Search = () => {
   const [submitDish, setSubmitDish] = useState(false);
   const [submitDishData, setSubmitDishData] = useState("");
   const [submitRestaurantData, setSubmitRestaurantData] = useState("");
+  const { coordinates } = useContext(location);
+  const { lat, long } = coordinates;
 
   useEffect(() => {
     async function fetch() {
-      const data = await search();
+      const data = await search(lat, long);
       setSearchPage(data);
     }
     fetch();
@@ -26,7 +27,7 @@ const Search = () => {
   useEffect(() => {
     async function fetchSuggestions(query) {
       if (query.length > 1) {
-        const data = await suggestions(query);
+        const data = await suggestions(query, lat, long);
         setSearchTerm(data.data.suggestions);
         setTyping(true);
       } else {
@@ -45,8 +46,8 @@ const Search = () => {
     const val = link.substring(link.indexOf("=") + 1);
     const dish = val.split("&");
     async function fetch() {
-      const data1 = await submit1(dish);
-      const data2 = await submit2(dish);
+      const data1 = await submit1(dish, lat, long);
+      const data2 = await submit2(dish, lat, long);
       setSubmitDishData(data1?.data?.cards[0]);
       setSubmitRestaurantData(data2?.data?.cards[0]);
     }
@@ -57,7 +58,8 @@ const Search = () => {
     setInputValue(e.target.value);
   }
 
-  if (searchPage === "") return <SearchShimmer2 />;
+  if (!searchPage || searchPage === "" || !lat || !long)
+    return <SearchShimmer2 />;
   return (
     <div className="bg-[#f1f1f18c] h-[89vh]">
       <div className="pt-[48px] pb-[8px] flex justify-center">
@@ -82,7 +84,7 @@ const Search = () => {
           </span>
         </form>
       </div>
-
+      {console.log(searchPage)}
       {submitDish ? (
         <submittedData.Provider
           value={{ submitDishData, submitRestaurantData, inputValue }}>

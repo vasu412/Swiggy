@@ -12,20 +12,21 @@ const Body = () => {
   const { cards, setCards, coordinates } = useContext(location);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const cardData = await loadMoreRestaurants(
-          coordinates.lat,
-          coordinates.lng
-        );
-        setCards(cardData);
-      } catch (err) {
-        console.log(err);
-        setCards(null);
+    if (coordinates) {
+      async function fetchData() {
+        try {
+          const cardData = await loadMoreRestaurants(
+            coordinates.lat,
+            coordinates.long
+          );
+          setCards(cardData);
+        } catch {
+          console.log("error");
+        }
       }
+      fetchData();
     }
-    fetchData();
-  }, []);
+  }, [coordinates]);
 
   if (!cards || cards.statusMessage === "Lat or Lng is missing") {
     return <Shimmer />;

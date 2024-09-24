@@ -49,6 +49,7 @@ const Menu = () => {
     totalRatingsString,
     costForTwoMessage,
     locality,
+    areaName,
     cuisines,
     feeDetails,
     sla,
@@ -68,12 +69,15 @@ const Menu = () => {
         <span className="text-[10px] font-nun text-slate-500">
           Home / {city} /
         </span>
-        <span className="text-[10px] font-nun text-slate-700"> {title}</span>
+        <span className="text-[10px] font-nun text-slate-700">{title}</span>
       </div>
 
-      <h1 className="font-[600] py-[20px] text-[23px] ml-[16px]">{title}</h1>
+      <h1 className="font-[600] py-[20px] text-[23px] ml-[16px]">
+        {" "}
+        {" " + title}
+      </h1>
       <div className="lg w-full flex items-center justify-center ">
-        <div className="bg-white w-[768px] h-[190px] border-[1px] border-gray-300 mx-[16px] mb-[16px] rounded-3xl">
+        <div className="bg-white w-[768px] pb-[15px] border-[1px] border-gray-300 mx-[16px] mb-[16px] rounded-3xl">
           <div className="mt-[20px] ml-[16px] font-nun font-bold text-[15px] flex items-center">
             <img
               src="/assets/star.png"
@@ -89,8 +93,8 @@ const Menu = () => {
             </span>
           </div>
           <div className="my-[8px] ml-[20px] text-[14px] font-nun font-bold underline text-[#F15700]">
-            <span>{cuisines[0]},</span>
-            <span> {cuisines[1]}</span>
+            <span>{cuisines[0]}</span>
+            <span>{cuisines[1] ? ", " + cuisines[1] : ""}</span>
           </div>
           <div className="py-[4px] pl-[20px] h-[48px] flex items-center">
             <div className="flex flex-col items-center ">
@@ -98,27 +102,33 @@ const Menu = () => {
               <div className="h-[23px] w-[1px] bg-[#C4C4C4]"></div>
               <div className="h-[7px] w-[7px] rounded-full bg-[#C4C4C4]"></div>
             </div>
-            <div className="ml-[12px] font-bold font-nun text-[13.5px]">
+            <div className="ml-[12px]  font-bold font-nun text-[13.5px]">
               <div>
                 <span className="mr-[10px]">Outlet </span>
-                <span className="font-[300] text-[gray] ">{locality}</span>
+                <span className="font-[300] text-[gray] ">
+                  {areaName || locality}
+                </span>
               </div>
               <div className="mt-[10px]">
                 <span>{sla.slaString}</span>
               </div>
             </div>
           </div>
-          <hr className="my-[12px]" />
-          <div className="ml-[16px] flex items-center">
-            <img
-              src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_40,h_40/v1648635511/Delivery_fee_new_cjxumu"
-              alt=""
-              className="h-[20px] w-[20px]"
-            />
-            <span className="font-[300] text-[gray] text-[13px] ml-2">
-              {feeDetails.message || availabilityServiceabilityMessage}
-            </span>
-          </div>
+          {availabilityServiceabilityMessage && (
+            <>
+              <hr className="mb-[12px]" />
+              <div className="ml-[16px] flex items-center">
+                <img
+                  src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_40,h_40/v1648635511/Delivery_fee_new_cjxumu"
+                  alt=""
+                  className="h-[20px] w-[20px]"
+                />
+                <span className="font-[300] text-[gray] text-[13px] ml-2">
+                  {availabilityServiceabilityMessage}
+                </span>
+              </div>
+            </>
+          )}
         </div>
       </div>
 

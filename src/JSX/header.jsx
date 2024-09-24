@@ -72,12 +72,12 @@ const Header = () => {
           <img src="/assets/people.png" alt="" className="h-5" />
           Sign In
         </p>
-        <a href="">
+        <Link to={"cart/"}>
           <p className="flex items-center justify-between w-[60px] hover:text-[#FC8019]">
             <img src="/assets/basket.png" alt="" className="h-5" />
             Cart
           </p>
-        </a>
+        </Link>
       </div>
     </div>
   );

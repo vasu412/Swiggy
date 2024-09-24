@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { getAddress, getCurrentLocation } from "../APIs/currLocation";
 import LogIn from "./logIn";
+import Addons from "./addons";
 
 function App() {
   const [dis, setDis] = useState("none");
@@ -84,6 +85,7 @@ function App() {
         <Location />
         <LogIn />
         <Outlet />
+        <Addons />
       </location.Provider>
     </div>
   );

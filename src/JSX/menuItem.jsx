@@ -1,4 +1,8 @@
+import { useState } from "react";
+import Addons from "./addons";
+
 const MenuItem = ({ item }) => {
+  const [customize, setCustomize] = useState(false);
   let src = "";
   let color = "";
   return (
@@ -33,6 +37,7 @@ const MenuItem = ({ item }) => {
             : "#116649";
         return (
           <div key={id}>
+            {/* <Addons /> */}
             <div className="flex py-[4px] h-[202px]">
               <div className="w-[552px] h-[74px]">
                 <img
@@ -78,7 +83,7 @@ const MenuItem = ({ item }) => {
                       imageId
                     }
                     alt=""
-                    className="w-[156px] h-[144px] rounded-xl ml-[60px]"
+                    className="w-[156px] h-[144px] rounded-xl ml-[60px] mix-blend-multiply"
                   />
                   <button
                     className="w-[120px] h-[38px] absolute bg-white rounded-lg right-[15px] bottom-[33px] font-[600] text-[18px] border"

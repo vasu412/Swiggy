@@ -8,6 +8,9 @@ import Body from "./body.jsx";
 import ItemRes from "./itemRes.jsx";
 import Search from "./search.jsx";
 import SearchDish from "./searchDish.jsx";
+import { Provider } from "react-redux";
+import { store } from "../APIs/store.js";
+import Cart from "./cart.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,10 +41,16 @@ const router = createBrowserRouter([
       { path: "search/search/:input/menu/:id", element: <Menu /> },
     ],
   },
+  {
+    path: "cart/",
+    element: <Cart />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

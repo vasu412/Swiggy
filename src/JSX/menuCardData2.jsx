@@ -1,7 +1,7 @@
 import { useState } from "react";
 import MenuItem from "./menuItem";
 
-const MenuCardData2 = ({ x }) => {
+const MenuCardData2 = ({ x, restaurantInfo }) => {
   const { title, categories } = x.card.card;
   const [showIndex, setShowIndex] = useState(null);
   return (
@@ -30,7 +30,11 @@ const MenuCardData2 = ({ x }) => {
               </div>
               <div className="mx-[17px]">
                 {showItems && show && (
-                  <MenuItem item={item.itemCards} key={title} />
+                  <MenuItem
+                    item={item.itemCards}
+                    key={title}
+                    restaurantInfo={restaurantInfo}
+                  />
                 )}
               </div>
             </div>

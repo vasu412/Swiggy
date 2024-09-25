@@ -1,4 +1,4 @@
-const MenuCarousel = ({ x }) => {
+const MenuCarousel = ({ x, restaurantInfo }) => {
   return (
     <>
       <h1 className=" font-[600] text-[16px] mx-[15px] my-[24px]">
@@ -7,7 +7,7 @@ const MenuCarousel = ({ x }) => {
       <div className="flex overflow-scroll m-[16px] mb-[50px] hide">
         {x?.card?.card?.carousel.map((item) => {
           return (
-            <div key={item.creativeId}>
+            <div key={item.bannerId}>
               <img
                 src={
                   "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_292,h_300/" +

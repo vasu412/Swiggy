@@ -85,7 +85,7 @@ function App() {
         <Location />
         <LogIn />
         <Outlet />
-        <Addons />
+        {/* <Addons /> */}
       </location.Provider>
     </div>
   );

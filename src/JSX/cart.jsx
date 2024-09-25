@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartHeader from "./cartHeader";
 import CartLogin from "./cartLogin";
+import Unservice from "./unservice";
+import { decreaseCount, increaseCount, updateItem } from "../APIs/slice";
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const items = useSelector((state) => state.cart.items);
   const [nod, setNod] = useState(false);
+  let total = 0;
+  console.log(items);
+  if (items.length === 0) return <Unservice />;
+  const { offers, areaName, title, distance, deliveryFee, cloudinaryImageId } =
+    items[0];
   return (
     <>
       <CartHeader />
@@ -14,16 +22,18 @@ const Cart = () => {
           <CartLogin />
           <div>
             <div className="w-[366px] bg-white">
-              <div className="px-[30px] py-[20px] w-[366px] flex">
+              <div className="px-[30px] py-[20px] w-[366px] flex cursor-pointer">
                 <img
-                  src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_100,h_100,c_fill/6e44fd7f1e5cd9967edfe47c10247671"
+                  src={`https://media-assets.swiggy.com/swiggy/image/upload/${cloudinaryImageId}`}
                   className="h-[50px] w-[50px]"
                 />
                 <div className="flex flex-col justify-between ml-[14px]">
-                  <div className="text-[15px] text-[#282c3f]">
-                    Great Indian Khichdi by EatFit
+                  <div className="text-[15px] text-[#282c3f] overflow-hidden text-ellipsis whitespace-nowrap ">
+                    {title}
                   </div>
-                  <div className="text-[#686b78] text-[11px]">Pushpanjali</div>
+                  <div className="text-[#686b78] text-[11px] overflow-hidden text-ellipsis whitespace-nowrap">
+                    {areaName}
+                  </div>
                   <div className="w-[40px] h-[2px] bg-[#282c3f] mt-[9px]"></div>
                 </div>
               </div>
@@ -33,38 +43,73 @@ const Cart = () => {
                   overflow: "scroll",
                 }}>
                 <div className="w-full px-[30px] ">
-                  <div className="py-[10px] w-full flex justify-between">
-                    <div className="flex ">
-                      <img
-                        src="/assets/veg.png"
-                        className="h-[16px] w-[16px] mt-[3px]"
-                      />
-                      <div className="ml-[10px] mr-[14px]">
-                        <h1 className="text-[12px]">Quinoa Khichdi Pop</h1>
-                        <h1 className="text-[10px] text-[#686b78] cursor-pointer">
-                          Customize{" "}
-                          <i className="material-icons text-[15px] absolute text-[#ff5200]">
-                            chevron_right
-                          </i>
-                        </h1>
+                  {items.map((dish) => {
+                    {
+                      total += dish.price || dish.defaultPrice / 100;
+                    }
+                    return (
+                      <div
+                        className="py-[10px] w-full flex justify-between items-center relative"
+                        key={dish.id}>
+                        <div className="flex ">
+                          <img
+                            src={
+                              dish.isVeg === 1
+                                ? "/assets/veg.png"
+                                : "/assets/nonVeg.png"
+                            }
+                            className="h-[16px] w-[16px] mt-[3px]"
+                          />
+                          <div className="ml-[10px] mr-[14px]">
+                            <h1 className="text-[12px]">{dish.name}</h1>
+                            {dish.addons && (
+                              <h1 className="text-[10px] text-[#686b78] cursor-pointer">
+                                Customize{" "}
+                                <i className="material-icons text-[15px] absolute text-[#ff5200]">
+                                  chevron_right
+                                </i>
+                              </h1>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex">
+                          <div className="border border-solid border-[#d4d5d9] text-[#60b246]  flex justify-around w-[68px] h-[28px] text-[13px] items-center font-bold">
+                            <i
+                              className="material-icons text-[12px] font-black cursor-pointer"
+                              onClick={() =>
+                                dispatch(decreaseCount(dish.name))
+                              }>
+                              remove
+                            </i>
+                            <div>{dish.count}</div>
+                            <i
+                              className="material-icons text-[12px] font-black cursor-pointer"
+                              onClick={() =>
+                                dispatch(increaseCount(dish.name))
+                              }>
+                              add
+                            </i>
+                          </div>
+                          <div className="w-[60px] h-[28px] flex flex-col justify-start items-end text-[#535665]">
+                            <h1 className="text-[10px] line-through">
+                              ₹
+                              {Math.floor(
+                                (dish.price || dish.defaultPrice) / 100
+                              ) * dish.count}
+                            </h1>
+                            <h1 className="text-[12px]">
+                              ₹
+                              {Math.floor(
+                                (dish.price || dish.defaultPrice) / 100
+                              ) *
+                                dish.count -
+                                15}
+                            </h1>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex">
-                      <div className="border border-solid border-[#d4d5d9] text-[#60b246]  flex justify-around w-[68px] h-[28px] text-[13px] items-center font-bold">
-                        <i className="material-icons text-[12px] font-black cursor-pointer">
-                          remove
-                        </i>
-                        <div>1</div>
-                        <i className="material-icons text-[12px] font-black cursor-pointer">
-                          add
-                        </i>
-                      </div>
-                      <div className="w-[60px] h-[28px] flex flex-col justify-start items-end text-[#535665]">
-                        <h1 className="text-[10px] line-through">₹398</h1>
-                        <h1 className="text-[12px]">₹383</h1>
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })}
 
                   <div className="mt-[15px] h-[51px] w-[306px] p-[16px] pl-[40px] text-[#686b78] bg-[#f9f9f9]  relative">
                     <img
@@ -109,11 +154,11 @@ const Cart = () => {
                     </div>
                     <div className="flex justify-between text-[11.7px] text-[#686b78] font-[300] opacity-[0.8]">
                       <div>Item Total</div>
-                      <div>₹398</div>
+                      <div>₹{total}</div>
                     </div>
                     <div className="flex justify-between text-[11.7px] text-[#686b78] font-[300] opacity-[0.8] mt-[10px]">
-                      <div>Delivery Fee | 1.6 kms</div>
-                      <div>₹37</div>
+                      <div>Delivery Fee | {distance}</div>
+                      <div>₹{deliveryFee / 100}</div>
                     </div>
                     <div className="flex justify-between text-[11.7px] text-[#686b78] font-[300] opacity-[0.8] mt-[10px]">
                       <div>Extra discount for you</div>

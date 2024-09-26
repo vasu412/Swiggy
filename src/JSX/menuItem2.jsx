@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { addItem, updateItem } from "../APIs/slice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import location from "../APIs/context";
 
 const MenuItem2 = ({ x, idx, restaurantInfo, item }) => {
+  const { setCustomize } = useContext(location);
   const { info } = x.card;
   const {
     description,
@@ -45,13 +47,20 @@ const MenuItem2 = ({ x, idx, restaurantInfo, item }) => {
       const updatedCount = count + 1;
       setCount(updatedCount);
       dispatch(addItem({ ...info, ...restaurantInfo, count: updatedCount }));
+      addons &&
+        setCustomize({
+          display: "block",
+          addonData: addons,
+          name: name,
+          price: info.price / 100 || info.defaultPrice / 100,
+        });
     }
   };
 
   useEffect(() => {
     count > 1 && dispatch(updateItem({ name, count }));
   }, [count]);
-
+  // if (customize) return <Addons />;
   return (
     <div key={id}>
       <div className="flex py-[4px] h-[202px]">

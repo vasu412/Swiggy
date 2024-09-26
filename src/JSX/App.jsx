@@ -14,6 +14,12 @@ function App() {
   const [currLocation, setCurrLocation] = useState("");
   const [cards, setCards] = useState(null);
   const [coordinates, setCoordinates] = useState({ lat: "", long: "" });
+  const [customize, setCustomize] = useState({
+    display: "hidden",
+    addonData: "",
+    name: "",
+    price: "",
+  });
 
   useEffect(() => {
     async function address() {
@@ -80,12 +86,14 @@ function App() {
           setCoordinates,
           dis2,
           setDis2,
+          customize,
+          setCustomize,
         }}>
+        <Addons />
         <Header />
         <Location />
         <LogIn />
         <Outlet />
-        {/* <Addons /> */}
       </location.Provider>
     </div>
   );

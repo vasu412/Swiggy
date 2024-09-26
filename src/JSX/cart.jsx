@@ -45,7 +45,9 @@ const Cart = () => {
                 <div className="w-full px-[30px] ">
                   {items.map((dish) => {
                     {
-                      total += dish.price || dish.defaultPrice / 100;
+                      total +=
+                        (dish.price / 100 || dish.defaultPrice / 100) *
+                        dish.count;
                     }
                     return (
                       <div
@@ -184,7 +186,18 @@ const Cart = () => {
               </div>
               <div className="flex w-full h-[60px] px-[30px] text-[#282c3f] text-center justify-between items-center font-[600] text-[14px]">
                 <div>TO PAY</div>
-                <div>₹477</div>
+                <div>
+                  ₹
+                  {items.reduce(
+                    (acc, curr) =>
+                      acc +
+                      Math.floor((curr.price || curr.defaultPrice) / 100) *
+                        curr.count,
+                    0
+                  ) +
+                    (-15 + 6 + 51) +
+                    deliveryFee / 100}
+                </div>
               </div>
             </div>
 

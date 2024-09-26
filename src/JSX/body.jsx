@@ -8,6 +8,7 @@ import location from "../APIs/context";
 import Footer from "./footer";
 import AllRestaurants from "./allRes";
 import Unservice from "./unservice";
+import Addons from "./addons";
 
 const Body = () => {
   const { cards, setCards, coordinates } = useContext(location);

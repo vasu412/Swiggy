@@ -130,7 +130,7 @@ const Cart = () => {
                         nod
                           ? "bg-[#60b246] "
                           : "bg-transparent border border-solid"
-                      }`}
+                      } select-none`}
                       onClick={() => setNod(!nod)}>
                       {nod && (
                         <i className="material-icons absolute text-white text-[15px] font-black">

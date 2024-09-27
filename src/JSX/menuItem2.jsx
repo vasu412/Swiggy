@@ -45,20 +45,23 @@ const MenuItem2 = ({ x, idx, restaurantInfo, item }) => {
   const addToCart = () => {
     if (items.length === 0 || items[0].title === restaurantInfo.title) {
       const updatedCount = count + 1;
-      setCount(updatedCount);
-      dispatch(addItem({ ...info, ...restaurantInfo, count: updatedCount }));
-      addons &&
+
+      if (addons) {
         setCustomize({
           display: "block",
           addonData: addons,
           name: name,
           price: info.price / 100 || info.defaultPrice / 100,
         });
+      } else {
+        setCount(updatedCount);
+        dispatch(addItem({ ...info, ...restaurantInfo, count: updatedCount }));
+      }
     }
   };
 
   useEffect(() => {
-    count > 1 && dispatch(updateItem({ name, count }));
+    dispatch(updateItem({ name, count }));
   }, [count]);
   // if (customize) return <Addons />;
   return (

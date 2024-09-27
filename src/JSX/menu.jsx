@@ -54,7 +54,7 @@ const Menu = () => {
   const regex = /<b>(.*?)<\/b> \| (.*)/;
   const distance = feeDetails?.message.match(regex)[1];
   return (
-    <div className="bg-[#f1f1f174] px-[320px] ">
+    <div className={`bg-[#f1f1f174] px-[320px] `}>
       <div className="py-[20px]">
         <span className="text-[10px] font-nun text-slate-500">
           Home / {city} /

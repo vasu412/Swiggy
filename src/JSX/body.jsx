@@ -51,7 +51,7 @@ const Body = () => {
   const res =
     cards?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
   return (
-    <div className="bg-[#f1f1f18c]">
+    <div className="bg-[#FFFFFF]">
       <div className=" px-[180px]">
         <Items items={items} title={title} />
         <TopRestaurants topRes={topRes} topResTitle={topResTitle} />

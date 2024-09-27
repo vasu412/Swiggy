@@ -6,7 +6,7 @@ const Header = () => {
   let { setDis, setAnimate, currLocation, setDis2 } = useContext(location);
 
   return (
-    <div className="h-20 flex  items-center justify-around bg-white sticky top-0 px-[30px] z-50">
+    <div className="h-20 flex  items-center shadow-md justify-around bg-[#FFFFFF] sticky top-0 px-[30px] z-50">
       <div
         className="flex justify-start items-center w-[300px] text-center"
         onClick={() => {

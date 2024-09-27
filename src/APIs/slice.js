@@ -15,6 +15,12 @@ const cartSlice = createSlice({
     updateItem: (state, action) => {
       state.items.map((x) => {
         if (x.name === action.payload.name) x.count = action.payload.count;
+
+        if (action.payload.count === 0) {
+          state.items = state.items.filter(
+            (x) => x.name !== action.payload.name
+          );
+        }
       });
     },
     decreaseCount: (state, action) => {

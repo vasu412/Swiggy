@@ -70,6 +70,18 @@ function App() {
     address();
   }, []);
 
+  useEffect(() => {
+    if (customize.display === "block" || dis === "block" || dis2 === "block") {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = "auto"; // Re-enable scrolling
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"; // Clean up on component unmount
+    };
+  }, [customize, dis, dis2]);
+
   return (
     <div>
       <location.Provider

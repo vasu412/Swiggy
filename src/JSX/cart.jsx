@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartHeader from "./cartHeader";
 import CartLogin from "./cartLogin";
 import Unservice from "./unservice";
-import { decreaseCount, increaseCount, updateItem } from "../APIs/slice";
+import { decreaseCount, increaseCount } from "../APIs/slice";
+import location from "../APIs/context";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.cart.items);
+  //const { customize } = useContext(location);
   const [nod, setNod] = useState(false);
   let total = 0;
   console.log(items);
@@ -45,9 +47,10 @@ const Cart = () => {
                 <div className="w-full px-[30px] ">
                   {items.map((dish) => {
                     {
-                      total +=
-                        (dish.price / 100 || dish.defaultPrice / 100) *
-                        dish.count;
+                      total += dish.addons
+                        ? dish.customizedPrice * dish.count
+                        : (dish.price / 100 || dish.defaultPrice / 100) *
+                          dish.count;
                     }
                     return (
                       <div
@@ -65,7 +68,23 @@ const Cart = () => {
                           <div className="ml-[10px] mr-[14px]">
                             <h1 className="text-[12px]">{dish.name}</h1>
                             {dish.addons && (
-                              <h1 className="text-[10px] text-[#686b78] cursor-pointer">
+                              <h1
+                                className="text-[10px] text-[#686b78] cursor-pointer"
+                                onClick={() =>
+                                  setCustomize({
+                                    display: "block",
+                                    addonData: dish.addons,
+                                    name: dish.name,
+                                    price:
+                                      dish.price / 100 ||
+                                      dish.defaultPrice / 100,
+                                    dispatch: {
+                                      ...info,
+                                      ...restaurantInfo,
+                                      count: updatedCount,
+                                    },
+                                  })
+                                }>
                                 Customize{" "}
                                 <i className="material-icons text-[15px] absolute text-[#ff5200]">
                                   chevron_right
@@ -101,11 +120,12 @@ const Cart = () => {
                             </h1>
                             <h1 className="text-[12px]">
                               ₹
-                              {Math.floor(
-                                (dish.price || dish.defaultPrice) / 100
-                              ) *
-                                dish.count -
-                                15}
+                              {dish.addons
+                                ? dish.customizedPrice * dish.count - 15
+                                : (dish.price / 100 ||
+                                    dish.defaultPrice / 100) *
+                                    dish.count -
+                                  15}
                             </h1>
                           </div>
                         </div>
@@ -187,16 +207,7 @@ const Cart = () => {
               <div className="flex w-full h-[60px] px-[30px] text-[#282c3f] text-center justify-between items-center font-[600] text-[14px]">
                 <div>TO PAY</div>
                 <div>
-                  ₹
-                  {items.reduce(
-                    (acc, curr) =>
-                      acc +
-                      Math.floor((curr.price || curr.defaultPrice) / 100) *
-                        curr.count,
-                    0
-                  ) +
-                    (-15 + 6 + 51) +
-                    deliveryFee / 100}
+                  ₹{Math.floor(total) + (-15 + 6 + 51) + deliveryFee / 100}
                 </div>
               </div>
             </div>

@@ -52,6 +52,7 @@ const MenuItem2 = ({ x, idx, restaurantInfo, item }) => {
           addonData: addons,
           name: name,
           price: info.price / 100 || info.defaultPrice / 100,
+          dispatch: { ...info, ...restaurantInfo, count: updatedCount },
         });
       } else {
         setCount(updatedCount);

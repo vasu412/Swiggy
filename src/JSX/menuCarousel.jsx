@@ -9,7 +9,7 @@ const MenuCarousel = ({ x }) => {
         <div className="flex w-max animate-scroll gap-[12px]">
           {/* Original set of items */}
           {x?.card?.card?.carousel.map((item) => (
-            <div key={item.bannerId} className="flex-shrink-0">
+            <div key={item.bannerId} className="flex-shrink-0 ">
               <img
                 src={
                   "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_292,h_300/" +

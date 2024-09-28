@@ -25,6 +25,7 @@ const router = createBrowserRouter([
         path: "menu/:id",
         element: <Menu />,
       },
+
       {
         path: "food/:id",
         element: <ItemRes />,
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   },
   {
     path: "cart/",
+    element: <Cart />,
+  },
+  {
+    path: "menu/:id/cart",
     element: <Cart />,
   },
 ]);

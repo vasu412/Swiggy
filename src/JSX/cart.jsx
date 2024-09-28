@@ -1,21 +1,33 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartHeader from "./cartHeader";
 import CartLogin from "./cartLogin";
-import Unservice from "./unservice";
+import { EmptyCart } from "./unservice";
 import { decreaseCount, increaseCount } from "../APIs/slice";
-import location from "../APIs/context";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.cart.items);
-  //const { customize } = useContext(location);
+  const navigate = useNavigate();
   const [nod, setNod] = useState(false);
   let total = 0;
-  console.log(items);
-  if (items.length === 0) return <Unservice />;
-  const { offers, areaName, title, distance, deliveryFee, cloudinaryImageId } =
-    items[0];
+  if (items.length === 0)
+    return (
+      <>
+        <CartHeader />
+        <EmptyCart />
+      </>
+    );
+  const {
+    offers,
+    id,
+    areaName,
+    title,
+    distance,
+    deliveryFee,
+    cloudinaryImageId,
+  } = items[0];
   return (
     <>
       <CartHeader />
@@ -24,7 +36,9 @@ const Cart = () => {
           <CartLogin />
           <div>
             <div className="w-[366px] bg-white">
-              <div className="px-[30px] py-[20px] w-[366px] flex cursor-pointer">
+              <div
+                className="px-[30px] py-[20px] w-[366px] flex cursor-pointer"
+                onClick={() => navigate(`/menu/${id}`)}>
                 <img
                   src={`https://media-assets.swiggy.com/swiggy/image/upload/${cloudinaryImageId}`}
                   className="h-[50px] w-[50px]"
@@ -39,6 +53,7 @@ const Cart = () => {
                   <div className="w-[40px] h-[2px] bg-[#282c3f] mt-[9px]"></div>
                 </div>
               </div>
+
               <div
                 style={{
                   maxHeight: "calc(100vh - 270px)",

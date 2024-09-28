@@ -13,6 +13,9 @@ const Addons = () => {
     data: [],
     totalPrice: [],
   });
+  const [notify, setNotify] = useState({ check: true, msg: "" });
+  const [arr, setArr] = useState([]);
+
   useEffect(() => {
     if (customize.addonData && customize.addonData.length > 0) {
       setItemCount(Array(customize.addonData.length).fill(0));
@@ -29,6 +32,44 @@ const Addons = () => {
       totalPrice: [],
     });
   };
+
+  const handleSubmit = () => {
+    if (arr.length > 0) {
+      setNotify({
+        check: true,
+        msg: arr[0],
+      });
+    } else {
+      dispatch(
+        addItem({
+          ...customize.dispatch,
+          customizedPrice: customizedTotalPrice,
+        })
+      );
+      customize.count2((prev) => prev + 1);
+      closeAddons();
+    }
+  };
+
+  useEffect(() => {
+    if (notify.check) {
+      const timer = setTimeout(() => {
+        // Hide the notification after 3 seconds
+        setNotify({ ...notify, check: false });
+      }, 3000); // 3 seconds
+
+      return () => clearTimeout(timer); // Cleanup the timer
+    }
+  }, [notify.check]);
+
+  useEffect(() => {
+    if (customize.addonData) {
+      const array = customize.addonData
+        .filter((x) => x.minAddons)
+        .map((x) => x.groupName);
+      setArr([...array]);
+    }
+  }, [customize.addonData]);
 
   const customizedTotalPrice =
     customize.price +
@@ -62,14 +103,14 @@ const Addons = () => {
           <div className="mb-[16px]">
             {customize.addonData &&
               customize.addonData.map((x, idx) => (
-                <>
+                <div key={x.groupId}>
                   <div className="pt-[8px] pb-[16px] text-[15px] font-[600]">
                     <span>{x.groupName}</span>
                     <span className="ml-[8px] text-[#02060C99]">
                       (
                       {x.maxAddons === -1
                         ? "optional"
-                        : itemCount[idx] / x.maxAddons}
+                        : itemCount[idx] + "/" + x.maxAddons}
                       )
                     </span>
                   </div>
@@ -81,10 +122,12 @@ const Addons = () => {
                         setItemCount={setItemCount}
                         idx={idx}
                         setShowCustomizedItems={setShowCustomizedItems}
+                        arr={setArr}
+                        groupName={x.groupName}
                       />
                     ))}
                   </div>
-                </>
+                </div>
               ))}
           </div>
         </div>
@@ -102,6 +145,19 @@ const Addons = () => {
                 ))}
               </div>
             )}
+          <div className="relative w-full mx-auto">
+            <div
+              className={`absolute inset-x-0 bottom-0 mx-auto w-fit h-fit text-white shadow-lg text-[11.7px] transform transition-all duration-300 ease-in-out p-[10px] px-[15px] rounded-xl mb-[20px] bg-[#1b1e24] ${
+                notify.check
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-full opacity-0"
+              }`}
+              style={{
+                transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+              }}>
+              {"You must select atleast 1 " + notify.msg}
+            </div>
+          </div>
           <div className="flex items-center justify-between">
             <div className="font-black">
               <div className="text-[17px] tracking-normal">
@@ -124,16 +180,11 @@ const Addons = () => {
                 </div>
               )}
             </div>
+
             <div
               className="w-[312px] h-[44px] text-white bg-[#1BA672] rounded-[12px] font-[600] text-[14px] flex items-center justify-center cursor-pointer"
               onClick={() => {
-                dispatch(
-                  addItem({
-                    ...customize.dispatch,
-                    customizedPrice: customizedTotalPrice,
-                  })
-                );
-                closeAddons();
+                handleSubmit();
               }}>
               Add item to cart
             </div>

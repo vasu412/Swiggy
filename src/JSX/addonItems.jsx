@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 
-const AddonItems = ({ extra, setItemCount, idx, setShowCustomizedItems }) => {
+const AddonItems = ({
+  extra,
+  setItemCount,
+  idx,
+  setShowCustomizedItems,
+  arr,
+  groupName,
+}) => {
   const [isCheck, setIscheck] = useState(false);
   const handleCheck = () => {
     if (!isCheck) {
@@ -17,6 +24,10 @@ const AddonItems = ({ extra, setItemCount, idx, setShowCustomizedItems }) => {
           data: arr,
           totalPrice: price,
         };
+      });
+      arr((prev) => {
+        const newArr = prev.filter((x) => x != groupName);
+        return newArr;
       });
     } else {
       setItemCount((prev) => {
@@ -36,6 +47,8 @@ const AddonItems = ({ extra, setItemCount, idx, setShowCustomizedItems }) => {
           totalPrice: price,
         };
       });
+
+      arr((prev) => [...prev, groupName]);
     }
     setIscheck(!isCheck);
   };

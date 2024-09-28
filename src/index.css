@@ -40,6 +40,7 @@
 .items::-webkit-scrollbar-thumb {
   background-color: rgb(241, 87, 0); /* Color of the scrollbar thumb */
   border-radius: 10px;    /* Roundness of the scrollbar thumb */
+  transition: background-color 0.3s ease, width 0.3s ease;
 }
 
 /* Optional: for scrollbar corner (where horizontal and vertical scrollbars meet) */

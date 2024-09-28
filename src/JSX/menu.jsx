@@ -2,12 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import menuCard from "../APIs/menuCard";
 import location from "../APIs/context";
 import MenuCardData from "./menuCardData";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import MenuCardData2 from "./menuCardData2";
 import MenuCarousel from "./menuCarousel";
 import MenuShimmer from "./menuShimmer";
 import MenuIntroduction from "./menuIntroduction";
 import Unservice from "./unservice";
+import { useSelector } from "react-redux";
+import Popup from "./popup";
 
 const Menu = () => {
   let { coordinates } = useContext(location);
@@ -19,6 +21,7 @@ const Menu = () => {
   const offers =
     menuData?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers;
 
+  const items = useSelector((state) => state.cart.items);
   useEffect(() => {
     async function cards() {
       const data = await menuCard(id, coordinates.lat, coordinates.lng);
@@ -116,6 +119,7 @@ const Menu = () => {
                       distance,
                       deliveryFee,
                       cloudinaryImageId,
+                      id,
                     }}
                   />
                 ) : x?.card?.card?.carousel ? (
@@ -128,6 +132,7 @@ const Menu = () => {
                       distance,
                       deliveryFee,
                       cloudinaryImageId,
+                      id,
                     }}
                   />
                 ) : (
@@ -143,7 +148,9 @@ const Menu = () => {
                         deliveryFee,
                         offers,
                         cloudinaryImageId,
+                        id,
                       }}
+                      idx={idx}
                     />
                     <hr className="my-[24px] mx-[16px] border-[8px] border-[#f0f0f0]" />
                   </>
@@ -153,6 +160,22 @@ const Menu = () => {
           }
         })}
       </div>
+      {items.length > 0 && (
+        <Link to={"cart/"}>
+          <div className="sticky bottom-0 w-full bg-[#60b246] flex h-[48px] text-white font-black justify-between items-center px-[20px] cursor-pointer">
+            <div className="text-[13px]">
+              {items.length} item{items.length > 1 ? "s" : ""} added
+            </div>
+            <div>
+              <p className="flex items-center justify-between text-[14px]">
+                <i className="material-symbols-outlined">shopping_cart</i>
+                VIEW CART
+              </p>
+            </div>
+          </div>
+        </Link>
+      )}
+      <Popup />
     </div>
   );
 };

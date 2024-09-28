@@ -11,6 +11,7 @@ const MenuItem = ({ item, restaurantInfo }) => {
           restaurantInfo={restaurantInfo}
           item={item}
           key={x?.card?.info?.id}
+          id={x?.card?.info?.id}
         />
       ))}
     </>

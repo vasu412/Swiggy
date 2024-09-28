@@ -21,6 +21,10 @@ function App() {
     price: "",
   });
 
+  const [isVisible, setIsVisible] = useState({
+    visible: false,
+  });
+
   useEffect(() => {
     async function address() {
       const position = await getCurrentLocation();
@@ -100,6 +104,8 @@ function App() {
           setDis2,
           customize,
           setCustomize,
+          isVisible,
+          setIsVisible,
         }}>
         <Addons />
         <Header />

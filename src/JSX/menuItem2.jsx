@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import location from "../APIs/context";
 
 const MenuItem2 = ({ x, idx, restaurantInfo, item }) => {
-  const { setCustomize } = useContext(location);
-  const { info } = x.card;
+  const { setCustomize, setIsVisible, isVisible } = useContext(location);
+  const { info } = x?.card;
   const {
     description,
     imageId,
@@ -43,30 +43,46 @@ const MenuItem2 = ({ x, idx, restaurantInfo, item }) => {
   const dispatch = useDispatch();
 
   const addToCart = () => {
+    const updatedCount = count + 1;
     if (items.length === 0 || items[0].title === restaurantInfo.title) {
-      const updatedCount = count + 1;
-
       if (addons) {
         setCustomize({
           display: "block",
           addonData: addons,
           name: name,
           price: info.price / 100 || info.defaultPrice / 100,
-          dispatch: { ...info, ...restaurantInfo, count: updatedCount },
+          dispatch: {
+            ...info,
+            ...restaurantInfo,
+            count: updatedCount,
+          },
+          count2: setCount,
         });
       } else {
         setCount(updatedCount);
         dispatch(addItem({ ...info, ...restaurantInfo, count: updatedCount }));
       }
+    } else if (items[0].title !== restaurantInfo.title) {
+      setIsVisible({
+        visible: true,
+        dispatch: {
+          ...info,
+          ...restaurantInfo,
+          count: updatedCount,
+        },
+        addon: addons,
+        count2: setCount,
+        name: name,
+      });
     }
   };
 
   useEffect(() => {
     dispatch(updateItem({ name, count }));
   }, [count]);
-  // if (customize) return <Addons />;
+
   return (
-    <div key={id}>
+    <div key={id} id={id}>
       <div className="flex py-[4px] h-[202px]">
         <div className="w-[552px] h-[74px]">
           <img

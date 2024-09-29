@@ -19,6 +19,7 @@ const MenuCardData2 = ({ x, restaurantInfo }) => {
               categories,
               title,
             }}
+            key={idx}
           />
         );
       })}

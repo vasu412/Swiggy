@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MenuItem2 from "./menuItem2";
 
 const MenuSearch = ({ menuData, restaurantInfo, setOpenSearch }) => {
@@ -6,47 +6,76 @@ const MenuSearch = ({ menuData, restaurantInfo, setOpenSearch }) => {
 
   const [search, setSearch] = useState("");
   const [searchData, setSearchData] = useState([]);
-  console.log(menuData);
+  const [debounceSearchValue, setDebounceSearchValue] = useState("");
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebounceSearchValue(search);
+    }, 300);
+
+    return () => clearTimeout(handler);
+  }, [search]);
 
   const handleChange = (e) => {
     const searchValue = e.target.value.toLowerCase();
-    if (searchValue === "") {
-      setSearch("");
+    setSearch(searchValue);
+  };
+
+  useEffect(() => {
+    if (debounceSearchValue === "") {
       setSearchData([]);
       return;
     }
-    setSearch(searchValue);
+
+    let searchResults = [];
 
     const cards =
       menuData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
-    console.log(cards);
-    let searchResults = []; // Temporary array to store search results
+    if (!cards) {
+      console.error("No cards found in the menu data.");
+      return;
+    }
 
-    cards?.forEach((x, idx) => {
+    cards.forEach((x, idx) => {
       if (idx > 1 && idx < cards.length - 3) {
-        // Categories check
+        // Check for categories and filter them
         if (x?.card?.card?.categories) {
           x.card.card.categories.forEach((category) => {
             const filteredItems = category?.itemCards?.filter((dish) =>
-              dish?.card?.info?.name?.toLowerCase().includes(searchValue)
+              dish?.card?.info?.name
+                ?.toLowerCase()
+                .includes(debounceSearchValue)
             );
-            searchResults = [...searchResults, ...filteredItems]; // Append results
+            if (filteredItems && filteredItems.length > 0) {
+              searchResults = [...searchResults, ...filteredItems]; // Append filtered results
+            }
           });
         }
-        // Direct items check
+
         if (x?.card?.card?.itemCards) {
           const filteredItems = x.card.card.itemCards.filter((dish) =>
-            dish?.card?.info?.name?.toLowerCase().includes(searchValue)
+            dish?.card?.info?.name?.toLowerCase().includes(debounceSearchValue)
           );
-          searchResults = [...searchResults, ...filteredItems]; // Append results
+          if (filteredItems && filteredItems.length > 0) {
+            searchResults = [...searchResults, ...filteredItems]; // Append filtered results
+          }
         }
       }
     });
 
-    console.log(searchResults);
-    setSearchData(searchResults); // Update state with final search results
-  };
+    const uniqueResults = searchResults.reduce((acc, current) => {
+      const isDuplicate = acc.find(
+        (item) => item.card.info.id === current.card.info.id
+      );
+      if (!isDuplicate) {
+        acc.push(current);
+      }
+      return acc;
+    }, []);
+
+    setSearchData(uniqueResults);
+  }, [menuData, debounceSearchValue]);
 
   return (
     <div

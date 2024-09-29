@@ -10,6 +10,7 @@ import MenuIntroduction from "./menuIntroduction";
 import Unservice from "./unservice";
 import { useSelector } from "react-redux";
 import Popup from "./popup";
+import MenuSearch from "./menuSearch";
 
 const Menu = () => {
   let { coordinates } = useContext(location);
@@ -17,6 +18,7 @@ const Menu = () => {
   const { id } = useParams();
   const [menuData, setMenuData] = useState(null);
   const [showIndex, setShowIndex] = useState(2);
+  const [openSearch, setOpenSearch] = useState(false);
 
   const offers =
     menuData?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers;
@@ -56,6 +58,24 @@ const Menu = () => {
 
   const regex = /<b>(.*?)<\/b> \| (.*)/;
   const distance = feeDetails?.message.match(regex)[1];
+
+  if (openSearch)
+    return (
+      <MenuSearch
+        menuData={menuData}
+        restaurantInfo={{
+          offers,
+          areaName,
+          title,
+          distance,
+          deliveryFee,
+          cloudinaryImageId,
+          id,
+        }}
+        setOpenSearch={setOpenSearch}
+      />
+    );
+
   return (
     <div className={`bg-[#f1f1f174] px-[320px] `}>
       <div className="py-[20px]">
@@ -92,7 +112,9 @@ const Menu = () => {
         <img src="/assets/vintage.png" alt="" className="h-[50px] w-[50px]" />
       </div>
 
-      <button className="text-[gray] text-center w-full h-[48px] bg-[#F0F0F5] rounded-xl relative mb-[50px]">
+      <button
+        className="text-[gray] text-center w-full h-[48px] bg-[#F0F0F5] rounded-xl relative mb-[50px]"
+        onClick={() => setOpenSearch(true)}>
         Search for dishes
         <img
           src="/assets/search.png"

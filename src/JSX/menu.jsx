@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import menuCard from "../APIs/menuCard";
 import location from "../APIs/context";
 import MenuCardData from "./menuCardData";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MenuCardData2 from "./menuCardData2";
 import MenuCarousel from "./menuCarousel";
 import MenuShimmer from "./menuShimmer";
@@ -11,6 +11,7 @@ import Unservice from "./unservice";
 import { useSelector } from "react-redux";
 import Popup from "./popup";
 import MenuSearch from "./menuSearch";
+import MenuFilters from "./menuFilters";
 
 const Menu = () => {
   let { coordinates } = useContext(location);
@@ -20,6 +21,7 @@ const Menu = () => {
   const [showIndex, setShowIndex] = useState(2);
   const [openSearch, setOpenSearch] = useState(false);
 
+  const navigate = useNavigate();
   const offers =
     menuData?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers;
 
@@ -57,7 +59,10 @@ const Menu = () => {
     menuData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
   const regex = /<b>(.*?)<\/b> \| (.*)/;
-  const distance = feeDetails?.message.match(regex)[1];
+  const distance =
+    feeDetails.message && feeDetails?.message.includes("|")
+      ? feeDetails?.message?.match(regex)[0]
+      : feeDetails?.message;
 
   if (openSearch)
     return (
@@ -113,7 +118,7 @@ const Menu = () => {
       </div>
 
       <button
-        className="text-[gray] text-center w-full h-[48px] bg-[#F0F0F5] rounded-xl relative mb-[50px]"
+        className="text-[gray] text-center w-full h-[48px] bg-[#F0F0F5] rounded-xl relative mb-[20px]"
         onClick={() => setOpenSearch(true)}>
         Search for dishes
         <img
@@ -122,6 +127,9 @@ const Menu = () => {
           className="h-[16px] w-[16px] absolute right-[10px] top-[15px]"
         />
       </button>
+
+      <MenuFilters />
+
       <hr className="my-[24px] mx-[16px]" />
 
       <div>
@@ -174,7 +182,6 @@ const Menu = () => {
                       }}
                       idx={idx}
                     />
-                    <hr className="my-[24px] mx-[16px] border-[8px] border-[#f0f0f0]" />
                   </>
                 )}
               </div>
@@ -183,19 +190,19 @@ const Menu = () => {
         })}
       </div>
       {items.length > 0 && (
-        <Link to={"cart/"}>
-          <div className="sticky bottom-0 w-full bg-[#60b246] flex h-[48px] text-white font-black justify-between items-center px-[20px] cursor-pointer">
-            <div className="text-[13px]">
-              {items.length} item{items.length > 1 ? "s" : ""} added
-            </div>
-            <div>
-              <p className="flex items-center justify-between text-[14px]">
-                <i className="material-symbols-outlined">shopping_cart</i>
-                VIEW CART
-              </p>
-            </div>
+        <div
+          className="sticky bottom-0 w-full bg-[#60b246] flex h-[48px] text-white font-black justify-between items-center px-[20px] cursor-pointer"
+          onClick={() => navigate("/cart")}>
+          <div className="text-[13px]">
+            {items.length} item{items.length > 1 ? "s" : ""} added
           </div>
-        </Link>
+          <div>
+            <p className="flex items-center justify-between text-[14px]">
+              <i className="material-symbols-outlined">shopping_cart</i>
+              VIEW CART
+            </p>
+          </div>
+        </div>
       )}
       <Popup />
     </div>

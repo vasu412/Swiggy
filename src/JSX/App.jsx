@@ -20,6 +20,12 @@ function App() {
     name: "",
     price: "",
   });
+  const [filters, setFilters] = useState({
+    veg: false,
+    nonVeg: false,
+    bestSeller: false,
+    guiltFree: false,
+  });
 
   const [isVisible, setIsVisible] = useState({
     visible: false,
@@ -106,6 +112,8 @@ function App() {
           setCustomize,
           isVisible,
           setIsVisible,
+          filters,
+          setFilters,
         }}>
         <Addons />
         <Header />

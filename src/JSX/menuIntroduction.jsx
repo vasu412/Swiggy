@@ -59,7 +59,7 @@ const MenuIntroduction = ({ props }) => {
               </div>
             </div>
           </div>
-          {feeDetails && (
+          {feeDetails.message && (
             <>
               <hr className="my-[12px]" />
               <div className="ml-[16px] flex items-center">
@@ -69,9 +69,11 @@ const MenuIntroduction = ({ props }) => {
                   className="h-[20px] w-[20px]"
                 />
                 <span className="font-[300] text-[gray] text-[13px] ml-2">
-                  {feeDetails.message.match(regex)[1] +
-                    " | " +
-                    feeDetails.message.match(regex)[2]}
+                  {feeDetails?.message.includes("|")
+                    ? feeDetails.message.match(regex)[1] +
+                      " | " +
+                      feeDetails.message.match(regex)[2]
+                    : feeDetails?.message}
                 </span>
               </div>
             </>

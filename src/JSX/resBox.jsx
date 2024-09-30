@@ -10,7 +10,8 @@ const Box = (props) => {
     offer =
       props.data.aggregatedDiscountInfoV3.header +
       " " +
-      props.data.aggregatedDiscountInfoV3.subHeader;
+      (props.data.aggregatedDiscountInfoV3.subHeader ||
+        props.data.aggregatedDiscountInfoV3.discountTag);
   }
   return (
     <div

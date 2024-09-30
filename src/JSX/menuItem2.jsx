@@ -5,19 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import location from "../APIs/context";
 
 const MenuItem2 = ({ x, idx, restaurantInfo, item }) => {
-  const { setCustomize, setIsVisible, isVisible } = useContext(location);
+  const { setCustomize, setIsVisible } = useContext(location);
   const { info } = x?.card;
-  const {
-    description,
-    imageId,
-    isVeg,
-    isBestseller,
-    inStock,
-    name,
-    ratings,
-    id,
-    addons,
-  } = info;
+  const { description, imageId, isVeg, name, ratings, id, addons } = info;
   const src =
     Number(ratings.aggregatedRating.rating) < 3
       ? "/assets/yellow.png"

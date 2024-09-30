@@ -74,6 +74,7 @@ const MenuSearch = ({ menuData, restaurantInfo, setOpenSearch }) => {
       return acc;
     }, []);
 
+    console.log(uniqueResults);
     setSearchData(uniqueResults);
   }, [menuData, debounceSearchValue]);
 

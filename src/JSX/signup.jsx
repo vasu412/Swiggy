@@ -13,7 +13,7 @@ const Signup = () => {
           className={`text-[#93959f] relative transition-all duration-300 z-40 ${
             login ? "text-[11px] top-[-15px]" : "text-[15px] top-0"
           } `}>
-          Phone number
+          Name
         </label>
         <input
           type="text"
@@ -30,7 +30,7 @@ const Signup = () => {
           className={`text-[#93959f] relative transition-all duration-300 z-40 ${
             name ? "text-[11px] top-[-15px]" : "text-[15px] top-0"
           } `}>
-          Name
+          Email
         </label>
         <input
           type="text"
@@ -46,7 +46,7 @@ const Signup = () => {
           className={`text-[#93959f] relative transition-all duration-300 z-40 ${
             email ? "text-[11px] top-[-15px]" : "text-[15px] top-0"
           } `}>
-          Email
+          Password
         </label>
         <input
           type="text"

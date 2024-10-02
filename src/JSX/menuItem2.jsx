@@ -106,8 +106,9 @@ const MenuItem2 = ({ x, idx, restaurantInfo, item }) => {
             {description}
           </p>
         </div>
-        {imageId && (
-          <div className="relative">
+
+        <div className="relative">
+          {imageId ? (
             <img
               src={
                 "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/" +
@@ -116,40 +117,47 @@ const MenuItem2 = ({ x, idx, restaurantInfo, item }) => {
               alt=""
               className="w-[156px] h-[144px] rounded-xl ml-[60px] mix-blend-multiply"
             />
+          ) : (
+            <div className="w-[156px] rounded-xl ml-[60px] mix-blend-multiply"></div>
+          )}
 
-            {count === 0 ? (
-              <button
-                className="w-[120px] h-[38px] absolute bg-white rounded-lg right-[15px] bottom-[33px] font-[600] text-[18px] border flex justify-around items-center"
-                style={{ color: "rgb(27, 166, 114)" }}
-                onClick={addToCart}>
-                {" "}
-                ADD
-              </button>
-            ) : (
-              <button
-                className="w-[120px] h-[38px] absolute bg-white rounded-lg right-[15px] bottom-[33px] font-[600] text-[18px] border flex justify-around items-center"
-                style={{ color: "rgb(27, 166, 114)" }}>
-                <i
-                  className="material-icons text-[14px] font-black cursor-pointer"
-                  onClick={() => setCount((prev) => prev - 1)}>
-                  remove
-                </i>
-                <div>{count}</div>
-                <i
-                  className="material-icons text-[14px] font-black cursor-pointer"
-                  onClick={() => setCount((prev) => prev + 1)}>
-                  add
-                </i>
-              </button>
-            )}
+          {count === 0 ? (
+            <button
+              className={`w-[120px] h-[38px] absolute bg-white rounded-lg right-[15px] ${
+                imageId ? "bottom-[33px]" : "bottom-[103px]"
+              } font-[600] text-[18px] border flex justify-around items-center hover:bg-[#dfe0e0]`}
+              style={{ color: "rgb(27, 166, 114)" }}
+              onClick={addToCart}>
+              {" "}
+              ADD
+            </button>
+          ) : (
+            <button
+              className="w-[120px] h-[38px] absolute bg-white rounded-lg right-[15px] bottom-[33px] font-[600] text-[18px] border flex justify-around items-center"
+              style={{ color: "rgb(27, 166, 114)" }}>
+              <i
+                className="material-icons text-[14px] font-black cursor-pointer"
+                onClick={() => setCount((prev) => prev - 1)}>
+                remove
+              </i>
+              <div>{count}</div>
+              <i
+                className="material-icons text-[14px] font-black cursor-pointer"
+                onClick={() => setCount((prev) => prev + 1)}>
+                add
+              </i>
+            </button>
+          )}
 
-            {addons && (
-              <p className="text-[12px] absolute bottom-[11px] right-[35px] text-[gray]">
-                Customisable
-              </p>
-            )}
-          </div>
-        )}
+          {addons && (
+            <p
+              className={`text-[12px] absolute ${
+                imageId ? "bottom-[11px]" : "bottom-[80px]"
+              } bottom-[11px] right-[35px] text-[gray]`}>
+              Customisable
+            </p>
+          )}
+        </div>
       </div>
       {idx < item.length - 1 && <hr className="my-[20px] border-[#d3d3d3b8]" />}
     </div>

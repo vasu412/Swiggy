@@ -1,36 +1,37 @@
 import React, { useContext, useState } from "react";
 import Signup from "./signup";
 import location from "../APIs/context";
-import { getAuth, signInWithPhoneNumber } from "firebase/auth";
-import { app } from "../APIs/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../APIs/firebase";
 
 const LogIn = () => {
   const [login, setLogin] = useState(false);
+  const [login2, setLogin2] = useState(false);
   const [signUp, setSignUp] = useState(false);
   const [animate, setAnimate] = useState("slideInLeft2 0.4s ease-in-out");
-  const [num, setNum] = useState(null);
   const { setDis2, dis2 } = useContext(location);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  // const auth = getAuth(app);
-  // auth.languageCode = "it";
-  // const phoneNumber = "9056316104";
-  // const appVerifier = window.recaptchaVerifier;
-
-  // signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-  //   .then((confirmationResult) => {
-  //     // SMS sent. Prompt user to type the code from the message, then sign the
-  //     // user in with confirmationResult.confirm(code).
-  //     window.confirmationResult = confirmationResult;
-  //     // ...
-  //     console.log(confirmationResult);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
+  const loggingIn = async (e) => {
+    e.preventDefault();
+    console.log("Email:", email); // Log the email for debugging
+    console.log("Password:", password);
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(userCredential);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div
-      className={`h-[100vh] w-[100vw] bg-[#282c3fb3] fixed z-[999] top-0 ${dis2} `}>
+      className={`h-[100vh] w-[100vw] bg-[#282c3fb3] fixed z-[999] top-0 ${dis2} select-none`}>
       <div
         className={` w-[522px]  h-full bg-white absolute right-0 `}
         style={{ animation: animate }}>
@@ -65,25 +66,47 @@ const LogIn = () => {
               className="w-[100px] h-[105px] absolute left-[300px] top-[73px]"
             />
           </div>
-          <form action="">
+          <form action="#" onSubmit={loggingIn}>
             {!signUp ? (
-              <div className="input-container border border-solid border-[#d4d5d9] w-[360px] h-[70px] mt-[40px] px-[20px] pt-[22px] z-10">
-                <label
-                  htmlFor="input"
-                  className={`text-[#93959f] relative transition-all duration-300 z-40 ${
-                    login ? "text-[11px] top-[-15px]" : "text-[15px] top-0"
-                  } `}>
-                  Phone number
-                </label>
-                <input
-                  type="text"
-                  id="input"
-                  className="w-full outline-none h-[40px] z-0 relative top-[-20px]"
-                  autoFocus
-                  onFocus={() => setLogin(true)}
-                  onBlur={() => setLogin(false)}
-                />
-              </div>
+              <>
+                <div className="input-container border border-solid border-[#d4d5d9] w-[360px] h-[70px] mt-[40px] px-[20px] pt-[22px] z-10">
+                  <label
+                    htmlFor="input"
+                    className={`text-[#93959f] relative transition-all duration-300 z-40 ${
+                      login ? "text-[11px] top-[-15px]" : "text-[15px] top-0"
+                    } `}>
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    id="input"
+                    className="w-full outline-none h-[40px] z-0 relative top-[-20px] "
+                    autoFocus
+                    onFocus={() => setLogin(true)}
+                    onBlur={() => email === "" && setLogin(false)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="input-container border border-t-0 border-solid border-[#d4d5d9] w-[360px] h-[70px] px-[20px] pt-[22px] z-10">
+                  <label
+                    htmlFor="input"
+                    className={`text-[#93959f] relative transition-all duration-300 z-40 ${
+                      login2 ? "text-[11px] top-[-15px]" : "text-[15px] top-0"
+                    } `}>
+                    Password
+                  </label>
+                  <input
+                    type="text"
+                    id="input"
+                    className="w-full outline-none h-[40px] z-0 relative top-[-20px]"
+                    onFocus={() => setLogin2(true)}
+                    onBlur={() => password === "" && setLogin2(false)}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              </>
             ) : (
               <Signup />
             )}
@@ -109,6 +132,7 @@ const LogIn = () => {
           </form>
         </div>
       </div>
+      <div id="recaptcha-container"></div>
     </div>
   );
 };

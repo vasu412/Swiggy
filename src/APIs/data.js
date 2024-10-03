@@ -9,7 +9,7 @@ async function loadMoreRestaurants(lat, lng) {
   }
   try {
     const data = await fetch(
-      `http://localhost:2000/api/restaurants?lat=${lat}&lng=${lng}`
+      `https://swiggy-backend-ztah.onrender.com/api/restaurants?lat=${lat}&lng=${lng}`
     );
     const res = await data.json();
     return res;

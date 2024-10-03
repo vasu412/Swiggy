@@ -3,7 +3,7 @@ const coords = localStorage.getItem("coordinates")
   : ["", ""];
 const menuCard = async (id) => {
   const response = await fetch(
-    `http://localhost:2000/api/menu?lat=${coords[0]}&lng=${coords[1]}&id=${id}`
+    `https://swiggy-backend-ztah.onrender.com/api/menu?lat=${coords[0]}&lng=${coords[1]}&id=${id}`
   );
   const data = await response.json();
   return data;

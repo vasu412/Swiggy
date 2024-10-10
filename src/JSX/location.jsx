@@ -89,7 +89,7 @@ const Location = () => {
     if (e.target.value != "") setTying(true);
     else setTying(false);
     const data = await fetch(
-      `http://localhost:2000/api/autocomplete?string=${e.target.value}`
+      `https://swiggy-backend-ztah.onrender.com/api/autocomplete?string=${e.target.value}`
     );
     const res = await data.json();
     setSuggesstions(res.data);

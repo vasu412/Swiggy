@@ -63,20 +63,19 @@ function App() {
         );
 
         localStorage.setItem("currLocation", locationCurr);
+      } else if (
+        localStorage.getItem("coordinates") &&
+        localStorage.getItem("currLocation")
+      ) {
+        const coords = localStorage.getItem("coordinates").split(",");
+        setCoordinates({
+          lat: coords[0],
+          long: coords[1],
+        });
+        setCurrLocation(localStorage.getItem("currLocation"));
       }
     }
 
-    if (
-      localStorage.getItem("coordinates") &&
-      localStorage.getItem("currLocation")
-    ) {
-      const coords = localStorage.getItem("coordinates").split(",");
-      setCoordinates({
-        lat: coords[0],
-        long: coords[1],
-      });
-      setCurrLocation(localStorage.getItem("currLocation"));
-    }
     address();
   }, []);
 

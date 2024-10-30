@@ -22,6 +22,7 @@ const Body = () => {
             coordinates.long
           );
           setCards(cardData);
+          console.log(cardData);
         } catch {
           console.log("error");
         }

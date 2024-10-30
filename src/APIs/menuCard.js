@@ -1,7 +1,7 @@
-const coords = localStorage.getItem("coordinates")
-  ? localStorage.getItem("coordinates").split(",")
-  : ["", ""];
 const menuCard = async (id) => {
+  const coords = localStorage.getItem("coordinates")
+    ? localStorage.getItem("coordinates").split(",")
+    : ["", ""];
   const response = await fetch(
     `https://swiggy-backend-ztah.onrender.com/api/menu?lat=${coords[0]}&lng=${coords[1]}&id=${id}`
   );

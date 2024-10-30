@@ -1,8 +1,8 @@
-const coords = localStorage.getItem("coordinates")
-  ? localStorage.getItem("coordinates").split(",")
-  : ["", ""];
-
 async function loadMoreRestaurants(lat, lng) {
+  const coords = localStorage.getItem("coordinates")
+    ? localStorage.getItem("coordinates").split(",")
+    : ["", ""];
+
   if (lat == "" && lng == "") {
     lat = coords[0];
     lng = coords[1];

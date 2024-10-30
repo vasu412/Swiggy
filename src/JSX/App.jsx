@@ -11,9 +11,24 @@ function App() {
   const [dis, setDis] = useState("none");
   const [dis2, setDis2] = useState("hidden");
   const [animate, setAnimate] = useState("slideInLeft 0.4s ease-out");
-  const [currLocation, setCurrLocation] = useState("");
+  const [currLocation, setCurrLocation] = useState(
+    localStorage.getItem("currLocation")
+      ? localStorage.getItem("currLocation")
+      : ""
+  );
   const [cards, setCards] = useState(null);
-  const [coordinates, setCoordinates] = useState({ lat: "", long: "" });
+  const [coordinates, setCoordinates] = useState(() => {
+    if (localStorage.getItem("coordinates")) {
+      const coords = localStorage.getItem("coordinates").split(",");
+      return {
+        lat: coords[0],
+        long: coords[1],
+      };
+    } else {
+      return { lat: "", long: "" };
+    }
+  });
+
   const [customize, setCustomize] = useState({
     display: "hidden",
     addonData: "",
@@ -63,16 +78,6 @@ function App() {
         );
 
         localStorage.setItem("currLocation", locationCurr);
-      } else if (
-        localStorage.getItem("coordinates") &&
-        localStorage.getItem("currLocation")
-      ) {
-        const coords = localStorage.getItem("coordinates").split(",");
-        setCoordinates({
-          lat: coords[0],
-          long: coords[1],
-        });
-        setCurrLocation(localStorage.getItem("currLocation"));
       }
     }
 

@@ -12,21 +12,14 @@ function App() {
   const [dis2, setDis2] = useState("hidden");
   const [animate, setAnimate] = useState("slideInLeft 0.4s ease-out");
   const [currLocation, setCurrLocation] = useState(
-    localStorage.getItem("currLocation")
-      ? localStorage.getItem("currLocation")
-      : ""
+    localStorage.getItem("currLocation") || ""
   );
   const [cards, setCards] = useState(null);
   const [coordinates, setCoordinates] = useState(() => {
-    if (localStorage.getItem("coordinates")) {
-      const coords = localStorage.getItem("coordinates").split(",");
-      return {
-        lat: coords[0],
-        long: coords[1],
-      };
-    } else {
-      return { lat: "", long: "" };
-    }
+    const coords = localStorage.getItem("coordinates")?.split(",");
+    return coords
+      ? { lat: parseFloat(coords[0]), long: parseFloat(coords[1]) }
+      : { lat: "", long: "" };
   });
 
   const [customize, setCustomize] = useState({
@@ -47,19 +40,13 @@ function App() {
   });
 
   useEffect(() => {
-    async function address() {
+    async function fetchAddress() {
       const position = await getCurrentLocation();
       const currLoc = await getAddress();
       const locationCurr = currLoc[0]
         ? currLoc[0].display_name
         : currLoc.address
-        ? currLoc.address.town +
-          "," +
-          currLoc.address.state +
-          " " +
-          currLoc.address.postcode +
-          "," +
-          currLoc.address.country
+        ? `${currLoc.address.town}, ${currLoc.address.state} ${currLoc.address.postcode}, ${currLoc.address.country}`
         : "";
 
       if (
@@ -74,14 +61,13 @@ function App() {
 
         localStorage.setItem(
           "coordinates",
-          position.coords.latitude + "," + position.coords.longitude
+          `${position.coords.latitude},${position.coords.longitude}`
         );
-
         localStorage.setItem("currLocation", locationCurr);
       }
     }
 
-    address();
+    fetchAddress();
   }, []);
 
   useEffect(() => {

@@ -29,7 +29,6 @@ const Menu = () => {
   useEffect(() => {
     async function cards() {
       const data = await menuCard(id, coordinates.lat, coordinates.lng);
-      console.log(data);
       setMenuData(data);
     }
     cards();

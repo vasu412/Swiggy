@@ -9,7 +9,6 @@ const ItemRes = () => {
   const { id } = useParams();
   const { coordinates } = useContext(location);
 
-  console.log(coordinates);
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -22,7 +21,6 @@ const ItemRes = () => {
 
   if (data === null || data.statusMessage === "") return <Shimmer />;
 
-  console.log(data);
   const { title, description } = data?.data?.cards[0]?.card?.card;
   // const text =
   //   data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle.text;
